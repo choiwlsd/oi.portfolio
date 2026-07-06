@@ -26,28 +26,30 @@ export default function Navbar() {
       <div className="container">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo/Brand */}
-          <div className="shrink-0">
+          <div className="flex-none">
             <a href="/" className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'Poppins' }}>
               dev.
             </a>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {NAV_ITEMS.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
-              >
-                {item.label}
-              </a>
-            ))}
-          </div>
+          <div className="hidden md:flex flex-1 justify-end items-center gap-20">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-10">
+              {NAV_ITEMS.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
 
-          {/* Desktop Social Links */}
-          <div className="hidden md:flex items-center gap-4">
-            <SocialLinks />
+            {/* Desktop Social Links */}
+            <div className="flex items-center gap-4">
+              <SocialLinks />
+            </div>
           </div>
 
           {/* Mobile Menu Button */}

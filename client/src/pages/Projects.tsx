@@ -43,8 +43,6 @@ export default function ProjectsPage() {
             Projects.
           </h1>
 
-          <div className="h-2 w-68 mt-3 rounded-full bg-[#0868ff]" />
-
           <p className="mt-7 max-w-md text-lg leading-8">
             A collection of selected work that solves problems, creates impact, and delivers value.
           </p>

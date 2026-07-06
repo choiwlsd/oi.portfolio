@@ -108,16 +108,13 @@ export default function AboutPage() {
       <main className="px-5 pb-12 pt-28 md:px-10">
         <section className="grid gap-12 lg:grid-cols-[1fr_0.95fr] lg:items-center">
           <div>
-            <p className="text-xl italic text-[#0868ff]" style={{ fontFamily: "cursive" }}>
-              Choi, Jinyeong
-            </p>
             <h1 className="mt-5 max-w-2xl text-6xl font-black leading-[0.98] tracking-normal md:text-7xl">
-              I turn ideas into visual stories.
+              Jinyeong Choi
             </h1>
-            <div className="mt-3 h-2 w-80 max-w-full rounded-full bg-[#0868ff]" />
+            <div className="h-px w-120 max-w-full bg-black" />
             <p className="mt-7 max-w-xl text-base leading-7 text-neutral-700">
-              I&apos;m a Computer Science student and developer who loves building meaningful experiences through code
-              and design.
+              I turn ideas into visual stories.
+              <br/> 저는 사용자 경험을 최우선으로 생각하고 끊임없이 고민하며, 문제를 해결하고 가치를 창출하는 것을 목표로 하는 <span className="font-bold">협력하는 개발자</span>입니다. 
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
@@ -147,6 +144,27 @@ export default function AboutPage() {
             </div>
             <span className="absolute -left-8 top-28 hidden text-5xl text-[#0868ff] md:block">♥</span>
             <span className="absolute -left-2 top-44 hidden text-3xl text-[#0868ff] md:block">♥</span>
+          </div>
+        </section>
+
+        <section className="mt-20">
+          <h2 className="text-2xl mb-5">협력을 통해 함께 성장하는 개발자</h2>
+
+          <div className="flex flex-col text-sm space-y-4 leading-7 text-neutral-700">
+            <span>
+              저는 사용자 경험을 최우선으로 생각하고 끊임없이 고민하며 더 나은 방향을 찾아가는{" "}
+              <span className="font-bold">협력하는 개발자 최진영</span>입니다.
+            </span>
+            <span>
+              저는 사용자가 웹사이트나 애플리케이션을 사용할 때 직관적이고 편안한 경험을 제공하는 것을 중요하게 생각합니다.
+              단순히 기능을 구현하는 것을 넘어, 사용자가 자연스럽게 이해하고 사용할 수 있는 인터페이스를 만드는 데 관심이 많습니다.
+            </span>
+            <span>
+              다양한 프로젝트와 스터디, 동아리 활동을 통해 협업과 소통의 가치를 배웠으며, 팀원들과 함께 고민하고 의견을 나누는 과정 속에서 더 나은 결과를 만들어가는 경험을 쌓아왔습니다.
+            </span>
+            <span>
+              이러한 경험을 바탕으로 문제를 해결하고 가치를 만들어내는 개발자로 성장하고 있으며, 앞으로도 더 나은 사용자 경험을 제공하기 위해 끊임없이 노력하고 있습니다.
+            </span>
           </div>
         </section>
 
