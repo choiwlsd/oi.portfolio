@@ -11,7 +11,7 @@
  */
 
 import { Mail, Phone, MapPin } from 'lucide-react';
-import { CONTACT_INFO } from '@/../../shared/const';
+import { CONTACT_INFO } from '@shared/portfolio';
 import Button from './Button';
 
 export default function Contact() {

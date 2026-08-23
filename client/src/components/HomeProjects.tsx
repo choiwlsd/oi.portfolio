@@ -1,13 +1,6 @@
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { PROJECTS } from "@/../../shared/const";
+import { PROJECTS } from "@shared/portfolio";
 import { navigate } from "wouter/use-browser-location";
-
-const projectCopy: Record<string, string> = {
-  "1": "An agentic AI system that analyzes posture and delivers meaningful, real-time feedback.",
-  "2": "A practical marketplace connecting people through a simpler micro-fertilizer trading flow.",
-  "3": "An intuitive classroom reservation experience designed around real campus needs.",
-  "4": "A personal energy dashboard that turns household power data into clear action.",
-};
 
 export default function HomeProjects() {
   const featured = PROJECTS.slice(0, 4);
@@ -53,7 +46,7 @@ export default function HomeProjects() {
                     <h3 className="text-xl font-bold leading-tight tracking-[-0.025em] md:text-2xl">{project.title}</h3>
                   </div>
                   <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-500 md:text-base">
-                    {projectCopy[project.id] ?? project.shortDescription ?? project.description}
+                    {project.shortDescription ?? project.description}
                   </p>
                   <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1">
                     {project.tags.slice(0, 3).map((tag) => (

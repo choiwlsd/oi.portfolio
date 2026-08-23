@@ -13,7 +13,7 @@
 
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import { NAV_ITEMS, SOCIAL_LINKS } from '@/../../shared/const';
+import { NAV_ITEMS, SOCIAL_LINKS } from '@shared/portfolio';
 import SocialLinks from './SocialLinks';
 
 export default function Navbar() {

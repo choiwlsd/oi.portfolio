@@ -14,7 +14,7 @@
  */
 
 import Button from './Button';
-import { PORTFOLIO_META } from '@/../../shared/const';
+import { PORTFOLIO_META } from '@shared/portfolio';
 import FloatingBadge from './ui/floating-badge';
 import flowerimage from '../assets/flower.png';
 import laptopimage from '../assets/laptop.png';

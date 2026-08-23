@@ -11,7 +11,7 @@
  */
 
 import { Github, Linkedin, Twitter, Mail, Instagram, BookOpen } from 'lucide-react';
-import { SOCIAL_LINKS } from '@/../../shared/const';
+import { SOCIAL_LINKS } from '@shared/portfolio';
 
 interface SocialLinksProps {
   className?: string;

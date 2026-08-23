@@ -12,7 +12,7 @@
  */
 
 import { ArrowUp } from 'lucide-react';
-import { NAV_ITEMS } from '@/../../shared/const';
+import { NAV_ITEMS } from '@shared/portfolio';
 import SocialLinks from './SocialLinks';
 
 export default function Footer() {

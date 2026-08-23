@@ -1,8 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import { navigate } from "wouter/use-browser-location";
 import me from "@/assets/me.png";
-
-const focus = ["Frontend Development", "AI Service", "UI / UX"];
+import { ABOUT_CONTENT } from "@shared/portfolio";
 
 export default function HomeAbout() {
   return (
@@ -16,18 +15,17 @@ export default function HomeAbout() {
         <div className="grid gap-16 lg:grid-cols-[1.45fr_0.55fr] lg:items-end lg:gap-24">
           <div>
             <p className="max-w-4xl text-[clamp(2.5rem,5.2vw,5.4rem)] font-black leading-[1.04] tracking-[-0.055em]">
-              사용자 경험을 고민하고,
-              <span className="block text-[#2f6dff]">함께 답을 만드는 개발자.</span>
+              {ABOUT_CONTENT.homeHeadline[0]}
+              <span className="block text-[#2f6dff]">{ABOUT_CONTENT.homeHeadline[1]}</span>
             </p>
             <div className="mt-16 grid gap-10 border-t border-black/20 pt-9 md:grid-cols-2">
               <p className="max-w-xl text-base leading-8 text-neutral-600 md:text-lg">
-                복잡한 문제를 명확한 인터페이스와 견고한 코드로 풀어냅니다. 협업 과정에서 의견을 연결하고,
-                실제로 사용하기 좋은 결과를 만드는 일을 중요하게 생각합니다.
+                {ABOUT_CONTENT.homeSummary}
               </p>
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-neutral-500">Focus</p>
                 <ul className="mt-6 space-y-3">
-                  {focus.map((item) => <li key={item} className="text-sm font-semibold">{item}</li>)}
+                  {ABOUT_CONTENT.focus.map((item) => <li key={item} className="text-sm font-semibold">{item}</li>)}
                 </ul>
               </div>
             </div>
@@ -41,7 +39,7 @@ export default function HomeAbout() {
             <div className="aspect-[3/4] overflow-hidden bg-[#efefeb]">
               <img src={me} alt="Jinyeong Choi" className="h-full w-full object-cover object-top grayscale" />
             </div>
-            <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-neutral-500">Jinyeong Choi · Seoul</p>
+            <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-neutral-500">{ABOUT_CONTENT.name} · Seoul</p>
           </div>
         </div>
       </div>

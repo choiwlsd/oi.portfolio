@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useLocation } from "wouter";
-import { PROJECTS } from "@/../../shared/const";
+import { PROJECTS } from "@shared/portfolio";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
