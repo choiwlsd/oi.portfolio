@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { PROJECTS } from "@/../../shared/const";
@@ -29,21 +29,19 @@ export default function ProjectsPage() {
   }, [filteredProjects, currentPage]);
 
   return (
-    <div className="min-h-screen text-black">
+    <div className="relative min-h-screen overflow-x-hidden bg-[#fafaf8] text-black">
+      <div className="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.055)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.055)_1px,transparent_1px)] bg-size-[72px_72px]" />
       <Navbar />
 
-      <main className="px-6 pb-6 pt-12 md:px-10">
+      <main className="relative z-10 mx-auto max-w-[1500px] px-5 pb-28 pt-32 sm:px-8 md:pb-40 md:pt-44">
         {/* Header */}
-        <section className="relative pt-10 md:pt-16">
-          <p className="text-xl italic text-[#0868ff]" style={{ fontFamily: "cursive" }}>
-            Things I've built
-          </p>
-
-          <h1 className="mt-3 text-7xl font-black">
-            Projects.
+        <section className="relative border-b border-black pb-16">
+          <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#2f6dff]">Selected archive · 2024—2026</p>
+          <h1 className="mt-8 text-[clamp(4rem,10vw,9rem)] font-black leading-[0.84] tracking-[-0.07em]">
+            Projects<span className="text-[#2f6dff]">.</span>
           </h1>
 
-          <p className="mt-7 max-w-md text-lg leading-8">
+          <p className="mt-10 max-w-xl text-lg leading-8 text-neutral-600">
             A collection of selected work that solves problems, creates impact, and delivers value.
           </p>
         </section>
@@ -58,10 +56,10 @@ export default function ProjectsPage() {
                   setActiveCategory(category);
                   setCurrentPage(1);
                 }}
-                className={`h-11 min-w-20 rounded-lg px-5 text-sm font-bold transition ${
+                className={`border-b px-1 py-2 text-sm font-bold transition ${
                   activeCategory === category
-                    ? "bg-[#0868ff] text-white"
-                    : "bg-neutral-100 hover:bg-neutral-200"
+                    ? "border-[#2f6dff] text-[#2f6dff]"
+                    : "border-transparent text-neutral-500 hover:text-black"
                 }`}
               >
                 {category}
@@ -69,7 +67,7 @@ export default function ProjectsPage() {
             ))}
           </div>
 
-          <select className="h-11 w-36 rounded-lg border border-neutral-300 bg-white px-4 text-sm font-bold outline-none">
+          <select className="h-11 w-36 border border-black/20 bg-[#fafaf8] px-4 text-sm font-bold outline-none">
             <option>Latest</option>
             <option>Featured</option>
             <option>A-Z</option>
@@ -77,32 +75,32 @@ export default function ProjectsPage() {
         </section>
 
         {/* Projects Grid */}
-        <section className="mt-10 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+        <section className="mt-16 grid gap-x-10 gap-y-20 md:grid-cols-2">
           {paginatedProjects.map((project) => (
             <article
               key={project.id}
-              className="group overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+              className="group"
             >
               <button
                 onClick={() => setLocation(`/projects/${project.id}`)}
                 className="flex h-full w-full flex-col text-left"
               >
                 {/* Image */}
-                <div className="relative h-60 overflow-hidden bg-neutral-100">
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#efefeb]">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                    className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.035]"
                   />
 
-                  <span className="absolute left-4 top-4 rounded bg-white/85 px-3 py-1 text-xs font-bold text-black outline-1 outline-black/10">
+                  <span className="absolute left-5 top-5 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em]">
                     {project.category}
                   </span>
                 </div>
 
                 {/* Content */}
-                <div className="flex flex-1 flex-col p-5">
-                  <h2 className="text-xl font-black">
+                <div className="mt-5 flex flex-1 flex-col border-t border-black/15 pt-5">
+                  <h2 className="text-xl font-bold md:text-2xl">
                     {project.title}
                   </h2>
 
@@ -115,7 +113,7 @@ export default function ProjectsPage() {
                     {project.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
-                        className="rounded bg-neutral-100 px-3 py-1 text-xs text-neutral-600"
+                        className="text-[11px] font-semibold uppercase tracking-[0.12em] text-neutral-400"
                       >
                         {tag}
                       </span>
@@ -123,7 +121,7 @@ export default function ProjectsPage() {
                   </div>
 
                   <div className="mt-auto flex items-center justify-between pt-5">
-                    <span className="text-sm font-bold text-black">
+                    <span className="font-mono text-xs text-neutral-500">
                       {project.year}
                     </span>
 
@@ -146,7 +144,7 @@ export default function ProjectsPage() {
               onClick={() => setCurrentPage(idx + 1)}
               className={`h-2.5 w-2.5 rounded-full transition-all ${
                 currentPage === idx + 1
-                  ? "bg-[#0868ff] scale-125"
+                  ? "bg-[#2f6dff] scale-125"
                   : "bg-neutral-300 hover:bg-neutral-400"
               }`}
               aria-label={`Go to page ${idx + 1}`}
@@ -155,7 +153,7 @@ export default function ProjectsPage() {
         </section>
       </main>
 
-      <Footer />
+      <div className="relative z-10"><Footer /></div>
     </div>
   );
 }

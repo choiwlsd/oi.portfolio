@@ -18,18 +18,18 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
-import Projects from '@/components/Projects';
-import About from '@/components/About';
+import HomeProjects from '@/components/HomeProjects';
+import HomeAbout from '@/components/HomeAbout';
 
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-#fafaf8 text-black overflow-scroll">
+    <div className="relative min-h-screen overflow-x-hidden bg-[#fafaf8] text-black">
       {/* grid */}
       <div
         className="
-          fixed inset-0 -z-10
-          bg-[linear-gradient(to_right,#dcdcdc_1px,transparent_1px),linear-gradient(to_bottom,#dcdcdc_1px,transparent_1px)]
+          pointer-events-none fixed inset-0 z-0
+          bg-[linear-gradient(to_right,rgba(0,0,0,0.055)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.055)_1px,transparent_1px)]
           bg-size-[72px_72px]
           opacity-60
         "
@@ -39,23 +39,23 @@ const Home = () => {
       <Navbar />
 
       {/* Main Content */}
-      <main className="pt-16 md:pt-20">
+      <main className="relative z-10 pt-16 md:pt-20">
 
         {/* Hero Section */}
         <Hero />
         
         {/* About Section */}
-        <About />
+        <HomeAbout />
 
         {/* Projects Section */}
-        <Projects />
+        <HomeProjects />
 
         {/* Contact Section */}
         {/* <Contact />  */}
       </main>
 
       {/* Footer */}
-      <Footer />
+      <div className="relative z-10"><Footer /></div>
     </div>
   );
 }
