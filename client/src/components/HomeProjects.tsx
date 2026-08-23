@@ -3,11 +3,11 @@ import { PROJECTS } from "@shared/portfolio";
 import { navigate } from "wouter/use-browser-location";
 
 export default function HomeProjects() {
-  const featured = PROJECTS.slice(0, 4);
+  const featured = PROJECTS.slice(0, 3);
 
   return (
     <section id="projects" className="relative border-t border-black/10">
-      <div className="mx-auto max-w-[1500px] px-5 py-28 sm:px-8 md:py-40">
+      <div className="mx-auto max-w-[1320px] px-5 py-28 sm:px-8 md:py-40">
         <div className="grid gap-8 border-b border-black pb-9 md:grid-cols-[1fr_auto] md:items-end">
           <div>
             <div className="mb-5 flex items-center gap-4">
@@ -26,10 +26,10 @@ export default function HomeProjects() {
           </button>
         </div>
 
-        <div className="mt-16 grid gap-x-10 gap-y-20 md:grid-cols-2">
+        <div className="mt-14 grid gap-x-7 gap-y-16 md:grid-cols-2 xl:grid-cols-3">
           {featured.map((project, index) => (
             <article key={project.id} onClick={() => navigate(project.link)} className="group cursor-pointer">
-              <div className="relative aspect-[4/3] overflow-hidden bg-[#efefeb]">
+              <div className="relative aspect-[16/10] overflow-hidden bg-[#efefeb]">
                 <img src={project.image} alt={project.title} className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.035]" />
                 <div className="absolute inset-0 bg-black/0 transition group-hover:bg-black/8" />
                 <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] backdrop-blur-sm sm:left-6 sm:top-6">

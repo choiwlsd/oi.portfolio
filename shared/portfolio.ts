@@ -28,8 +28,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
   { platform: 'email', url: 'mailto:choiwlsd@gmail.com', icon: 'Mail' },
 ];
 
-import blueBG from '../client/src/assets/background/blue-none-bg.png';
-import pinkBG from '../client/src/assets/background/pink-none-bg.png';
+import defaultProjectCover from '../client/src/assets/project-default.png';
 /**
  * Featured projects with detailed information
  */
@@ -39,8 +38,8 @@ export const PROJECTS: Project[] = [
     title: 'Pose-Agent',
     description: '[캡스톤디자인] 자율협력지원 Agentic AI: 협주 가능 악기 레슨 Agent AI 플랫폼 기술 개발',
     shortDescription: '협주가능 악기 레슨 Agent AI 플랫폼',
-    image: blueBG,
-    gallery: [blueBG, pinkBG],
+    image: defaultProjectCover,
+    gallery: [defaultProjectCover],
     tags: ['Python', 'MediaPipe', 'AI'],
     link: '/projects/1',
     year: '2025',
@@ -67,7 +66,7 @@ export const PROJECTS: Project[] = [
     description: '🏆KHUTHON 최우수상 수상작: 마이크로 비료 거래 플랫폼',
     shortDescription: 'Micro fertilizer trading platform',
     image: 'https://cdn.phototourl.com/free/2026-05-13-edd55c19-479e-498c-966e-645a5d4d33bc.png',
-    gallery: [blueBG, pinkBG],
+    gallery: [defaultProjectCover],
     tags: ['JavaScript', 'React', 'Node.js'],
     link: '/projects/2',
     year: '2025',
@@ -94,7 +93,7 @@ export const PROJECTS: Project[] = [
     description: '🏆세모톤 대상 수상작: 강의실 대여 플랫폼',
     shortDescription: 'Classroom rental platform',
     image: 'https://cdn.phototourl.com/free/2026-05-13-1843cd55-a60c-47bd-ba6b-435c426a1246.png',
-    gallery: [blueBG, pinkBG],
+    gallery: [defaultProjectCover],
     tags: ['JavaScript', 'React', 'TypeScript'],
     link: '/projects/3',
     year: '2025',
@@ -120,8 +119,8 @@ export const PROJECTS: Project[] = [
     title: 'KHUTHON 2024 - Personal Power Monitoring System',
     description: '🏆KHUTHON 우수상/인기상 수상작: 개인화된 전력 모니터링 시스템',
     shortDescription: 'Personal power monitoring system',
-    image: blueBG,
-    gallery: [blueBG, pinkBG],
+    image: defaultProjectCover,
+    gallery: [defaultProjectCover],
     tags: ['JavaScript', 'React', 'IoT'],
     link: '/projects/4',
     year: '2024',
@@ -143,8 +142,8 @@ export const PROJECTS: Project[] = [
     title: 'Track Study Project - AI Cover Song Video Generator',
     description: '🏆TrackStudy Project 2등 수상작: 음성 및 영상 생성 모델을 활용한 노래 커버 영상 제작 서비스',
     shortDescription: 'AI-powered cover song video generator',
-    image: blueBG,
-    gallery: [blueBG, pinkBG],
+    image: defaultProjectCover,
+    gallery: [defaultProjectCover],
     tags: ['Python', 'AI', 'Video Generation'],
     link: '/projects/5',
     year: '2024',
@@ -166,8 +165,8 @@ export const PROJECTS: Project[] = [
     title: 'Done-Check',
     description: 'To-do Chrome extension service. Done? then check what you did!🌱🐾',
     shortDescription: 'Chrome extension for task tracking',
-    image: blueBG,
-    gallery: [blueBG, pinkBG],
+    image: defaultProjectCover,
+    gallery: [defaultProjectCover],
     tags: ['JavaScript', 'Chrome Extension'],
     link: '/projects/6',
     year: '2025',
