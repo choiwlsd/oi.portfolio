@@ -25,7 +25,7 @@ export interface Project {
   link: string;
   year: string;
   featured?: boolean;
-  category?: 'Web' | 'AI' | 'UI/UX' | 'Others';
+  category?: 'Web' | 'AI' | 'Data' | 'UI/UX' | 'Others';
   duration?: string;
   team?: string[];
   technologies?: string[];

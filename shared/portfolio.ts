@@ -125,7 +125,7 @@ export const PROJECTS: Project[] = [
     link: '/projects/4',
     year: '2024',
     featured: false,
-    category: 'Web',
+    category: 'Data',
     duration: 'May 2024 - May 2024',
     team: ['Developer', 'Designer'],
     technologies: ['JavaScript', 'React', 'IoT'],

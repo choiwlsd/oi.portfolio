@@ -36,12 +36,15 @@ export default function AboutPage() {
         <section className="grid gap-8 border-t border-black/20 py-20 lg:grid-cols-[0.5fr_1.5fr] lg:gap-20">
           <h2 className="text-xs font-bold uppercase tracking-[0.22em] text-neutral-500">Interests</h2>
           <div className="grid gap-3 sm:grid-cols-3">
-            {ABOUT_CONTENT.interests.map((interest, index) => (
-              <div key={interest} className="flex min-h-40 flex-col justify-between border border-black/20 bg-[#fafaf8]/80 p-6 backdrop-blur-[2px] md:min-h-48 md:p-8">
+            {ABOUT_CONTENT.interests.map((interest, index) => {
+              const category = interest === "AI Agent" ? "AI" : interest === "Data Analysis" ? "Data" : "Web";
+              return (
+              <a href={`/projects?category=${category}`} key={interest} className="group flex min-h-40 flex-col justify-between border border-black/20 bg-[#fafaf8]/80 p-6 backdrop-blur-[2px] transition hover:border-[#2f6dff] hover:bg-white md:min-h-48 md:p-8">
                 <span className="font-mono text-xs text-[#2f6dff]">0{index + 1}</span>
-                <p className="mt-10 text-xl font-bold leading-tight tracking-tight md:text-2xl">{interest}</p>
-              </div>
-            ))}
+                <div className="mt-10 flex items-end justify-between gap-4"><p className="text-xl font-bold leading-tight tracking-tight md:text-2xl">{interest}</p><ArrowUpRight size={17} className="shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></div>
+              </a>
+              );
+            })}
           </div>
         </section>
 

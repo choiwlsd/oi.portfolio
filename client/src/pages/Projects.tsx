@@ -5,10 +5,14 @@ import { PROJECTS } from "@shared/portfolio";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const categories = ["All", "Web", "AI", "UI/UX", "Others"];
+const categories = ["All", "Web", "AI", "Data", "UI/UX", "Others"];
 
 export default function ProjectsPage() {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const requestedCategory = new URLSearchParams(window.location.search).get("category");
+  const initialCategory = requestedCategory && categories.includes(requestedCategory)
+    ? requestedCategory
+    : "All";
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [currentPage, setCurrentPage] = useState(1);
   const [, setLocation] = useLocation();
 
