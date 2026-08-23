@@ -1,10 +1,16 @@
-import { Download, Mail } from "lucide-react";
+import { useState } from "react";
+import { ArrowUpRight, ChevronDown, Download, Mail } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SocialLinks from "@/components/SocialLinks";
 import { ABOUT_CONTENT } from "@shared/portfolio";
 
 export default function AboutPage() {
+  const [showAllActivities, setShowAllActivities] = useState(false);
+  const visibleActivities = showAllActivities
+    ? ABOUT_CONTENT.activities
+    : ABOUT_CONTENT.activities.slice(0, 3);
+
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-[#fafaf8] text-black">
       <div className="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.055)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.055)_1px,transparent_1px)] bg-size-[72px_72px]" />
@@ -39,15 +45,66 @@ export default function AboutPage() {
           </div>
         </section>
 
+        <section className="grid gap-8 border-t border-black/20 py-20 lg:grid-cols-[0.5fr_1.5fr] lg:gap-20">
+          <div>
+            <h2 className="text-xs font-bold uppercase tracking-[0.22em] text-neutral-500">Leadership<br />& Activities</h2>
+            <p className="mt-5 max-w-40 text-xs leading-5 text-neutral-400">Leadership, programs and communities.</p>
+          </div>
+          <div>
+            <div className="divide-y divide-black/15 border-y border-black/20">
+              {visibleActivities.map((activity) => (
+                <article key={`${activity.title}-${activity.period}`} className="grid gap-3 py-6 md:grid-cols-[170px_110px_1fr] md:gap-6">
+                  <p className="font-mono text-[11px] leading-5 text-[#2f6dff]">{activity.period}</p>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-400">{activity.category}</p>
+                  <div>
+                    {'link' in activity ? (
+                      <a href={activity.link} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-2 text-base font-bold transition hover:text-[#2f6dff]">
+                        {activity.title}
+                        <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </a>
+                    ) : (
+                      <h3 className="text-base font-bold">{activity.title}</h3>
+                    )}
+                    <p className="mt-1.5 text-sm leading-6 text-neutral-500">{activity.organization}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+            {ABOUT_CONTENT.activities.length > 3 && (
+              <button
+                type="button"
+                aria-expanded={showAllActivities}
+                onClick={() => setShowAllActivities((current) => !current)}
+                className="group mt-7 inline-flex items-center gap-3 text-sm font-bold transition hover:text-[#2f6dff]"
+              >
+                {showAllActivities ? "Show less" : `Show more (${ABOUT_CONTENT.activities.length - 3})`}
+                <ChevronDown size={16} className={`transition-transform duration-300 ${showAllActivities ? "rotate-180" : "group-hover:translate-y-0.5"}`} />
+              </button>
+            )}
+          </div>
+        </section>
+
         <div className="grid gap-20 border-t border-black/20 py-20 lg:grid-cols-2 lg:gap-24">
           <section>
             <h2 className="text-xs font-bold uppercase tracking-[0.22em] text-neutral-500">Education</h2>
-            <p className="mt-10 font-mono text-xs text-[#2f6dff]">{ABOUT_CONTENT.education.period}</p><h3 className="mt-4 text-2xl font-bold">{ABOUT_CONTENT.education.degree}</h3><p className="mt-2 text-sm text-neutral-600">{ABOUT_CONTENT.education.school}</p>
+            {ABOUT_CONTENT.education.map((edu) => (
+              <div key={edu.period}>
+                <p className="mt-10 font-mono text-xs text-[#2f6dff]">{edu.period}</p>
+                <h3 className="mt-4 text-2xl font-bold">{edu.degree}</h3>
+                <p className="mt-2 text-sm text-neutral-600">{edu.school}</p>
+              </div>
+            ))}
           </section>
           <section>
             <h2 className="text-xs font-bold uppercase tracking-[0.22em] text-neutral-500">Awards</h2>
             <div className="mt-8 divide-y divide-black/15 border-t border-black/15">
-              {ABOUT_CONTENT.awards.map((award) => <div key={`${award.title}-${award.year}`} className="grid grid-cols-[60px_1fr_auto] gap-4 py-4 text-sm"><span className="font-mono text-xs text-[#2f6dff]">{award.year}</span><span className="font-semibold">{award.title}</span><span className="text-neutral-500">{award.result}</span></div>)}
+              {ABOUT_CONTENT.awards.map((award) => (
+                <div key={`${award.title}-${award.year}`} className="grid grid-cols-[60px_1fr_auto] gap-4 py-4 text-sm">
+                  <span className="font-mono text-xs text-[#2f6dff]">{award.year}</span>
+                  <span className="font-semibold">{award.title}</span>
+                  <span className="text-neutral-500">{award.result}</span>
+                </div>
+              ))}
             </div>
           </section>
         </div>

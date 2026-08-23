@@ -214,7 +214,7 @@ export const TOOLS: Tool[] = [
 /** 경력 — About 페이지가 이 배열을 직접 사용합니다. */
 export const EXPERIENCE = [
   {
-    period: '2026. Aug — PRESENT',
+    period: '2026. 08. — PRESENT',
     role: 'KIST Europe Software Convergence Intern',
     organization: 'Research-based',
     description: 'KIST Europe에서 소프트웨어 융합 연구 인턴으로 근무하며, 연구 프로젝트에 필요한 소프트웨어 개발 및 데이터 분석을 수행합니다. 다양한 연구 분야와 협업하며 실질적인 문제 해결 능력을 향상시키고 있습니다.',
@@ -225,13 +225,67 @@ export const EXPERIENCE = [
     organization: 'Project-based',
     description: '웹 애플리케이션과 AI 기반 서비스를 설계하고 개발합니다. 사용자 흐름을 정의하는 단계부터 구현과 개선까지 참여합니다.',
   },
-  {
-    period: '2023 — PRESENT',
-    role: 'UI / UX & Product Design',
-    organization: 'Team projects',
-    description: '사용자 문제를 바탕으로 정보 구조와 인터페이스를 설계하고, 실제 동작하는 프로토타입으로 구체화합니다.',
-  },
 ];
+
+/** 리더십 및 대외활동 — 최신순으로 작성합니다. */
+export const ACTIVITIES = [
+  {
+    period: '2025. 01. — 2025. 12.',
+    title: '미디어홍보팀장',
+    organization: '경희대학교 소프트웨어융합대학 학생회 새벽',
+    category: 'Leadership',
+  },
+  {
+    period: '2025. 01. — 2025. 12.',
+    title: '디닷컴 회장',
+    organization: '경희대학교 소프트웨어융합대학 학술동아리',
+    category: 'Leadership',
+  },
+  {
+    period: '2025. 01.',
+    title: 'Silicon Valley Innovation & Startup Program 수료',
+    organization: 'San Jose State University',
+    category: 'Program',
+  },
+  {
+    period: '2024. 08. — 2025. 07.',
+    title: '제2기숙사 생활멘토',
+    organization: '경희대학교',
+    category: 'Leadership',
+  },
+  {
+    period: '2024. 07. — 2024. 12.',
+    title: '디닷컴 총무',
+    organization: '경희대학교 소프트웨어융합대학 학술동아리',
+    category: 'Leadership',
+  },
+  {
+    period: '2024. 04. — 2024. 05.',
+    title: '베리어프리 앱 개발 콘테스트 참여',
+    organization: 'Barrier-Free App Development Contest',
+    category: 'Program',
+  },
+  {
+    period: '2024. 01. — 2024. 06.',
+    title: 'KHUDA',
+    organization: '경희대학교 데이터분석 AI 동아리',
+    category: 'Community',
+    link: 'https://github.com/khuda-data',
+  },
+  {
+    period: '2024. 05.',
+    title: '제2회 Generative AI Ideation 참여',
+    organization: '뤼튼(Wrtn) 캠퍼스리더 주관',
+    category: 'Program',
+  },
+  {
+    period: '2024. 03. — 2024. 08.',
+    title: 'University MakeUs Challenge 6기 · WEB 파트',
+    organization: '대학생 IT 연합 동아리 UMC',
+    category: 'Community',
+    link: 'https://umc.makeus.in/',
+  },
+] as const;
 
 /**
  * Contact information
@@ -283,11 +337,19 @@ export const ABOUT_CONTENT = {
   profile: '사용자 경험을 최우선으로 생각하며, 복잡한 문제를 명확한 인터페이스와 견고한 코드로 해결합니다. 협업을 통해 더 나은 방향을 찾고 실제 가치를 만드는 개발자입니다.',
   focus: ['Frontend Development', 'AI Service', 'UI / UX'],
   experience: EXPERIENCE,
-  education: {
-    period: '2021 — 2026',
-    degree: 'B.S. in Computer Science',
-    school: 'Kyung Hee University · Seoul',
-  },
+  activities: ACTIVITIES,
+  education: [
+    {
+      period: '2021 — 2026',
+      degree: 'B.S. in Computer Science',
+      school: 'Kyung Hee University · Seoul',
+    },
+    {
+      period: '2018 — 2022',
+      degree: 'American School of Milan Middle School Diploma & High School',
+      school: 'American School of Milan · Italy',
+    },
+  ],
   awards: [
     { year: '2025', title: 'KHUTHON', result: '최우수상' },
     { year: '2025', title: 'Semothon', result: '대상' },
