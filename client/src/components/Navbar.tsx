@@ -22,7 +22,7 @@ export default function Navbar() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50">
+    <nav className="fixed left-0 right-0 top-0 z-50 border-b border-black/10 bg-[#fafaf8]">
       <div className="container">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo/Brand */}
@@ -64,7 +64,7 @@ export default function Navbar() {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden border-t border-gray-200 bg-white">
+          <div className="border-t border-black/10 bg-[#fafaf8] md:hidden">
             <div className="px-4 py-4 space-y-3">
               {NAV_ITEMS.map((item) => (
                 <a
@@ -76,7 +76,7 @@ export default function Navbar() {
                   {item.label}
                 </a>
               ))}
-              <div className="pt-4 border-t border-gray-200 flex gap-4">
+              <div className="flex gap-4 border-t border-black/10 pt-4">
                 <SocialLinks />
               </div>
             </div>
