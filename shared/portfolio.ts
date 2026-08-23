@@ -29,6 +29,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
 ];
 
 import defaultProjectCover from '../client/src/assets/project-default.png';
+import imageColorizationCover from '../client/src/assets/image-colorization-cover.png';
 /**
  * Featured projects with detailed information
  */
@@ -182,6 +183,32 @@ export const PROJECTS: Project[] = [
       'Functional Chrome extension',
       'Positive user feedback',
     ],
+  },
+  {
+    id: '7',
+    title: 'Image Colorization',
+    description: 'Pix2Pix, CWGAN, U-Net을 단계적으로 실험하며 흑백 이미지에 자연스러운 색을 복원하는 딥러닝 모델을 개발한 프로젝트입니다.',
+    shortDescription: '흑백 이미지를 컬러 이미지로 복원하는 딥러닝 모델 연구',
+    image: imageColorizationCover,
+    gallery: [imageColorizationCover],
+    tags: ['Python', 'GAN', 'U-Net'],
+    link: '/projects/7',
+    year: '2024',
+    featured: false,
+    category: 'AI',
+    duration: '2024',
+    team: ['4-person team'],
+    technologies: ['Python', 'Pix2Pix', 'CWGAN', 'U-Net', 'VGG19', 'OpenCV'],
+    challenge: '흑백 사진의 밝기와 구조는 유지하면서 자연스럽고 일관된 색상 정보를 자동으로 복원하고, 제한된 데이터와 낮은 출력 품질 문제를 개선해야 했습니다.',
+    approach: 'Pix2Pix에서 시작해 25,000쌍의 LAB 데이터로 CWGAN을 실험하고, 최종적으로 7,129쌍의 풍경 이미지와 VGG19 perceptual loss를 적용한 U-Net 모델로 발전시켰습니다.',
+    solution: '입력 해상도를 320×320으로 높이고, convolution 범위와 batch size를 조정했으며, 학습률 스케줄러와 perceptual loss를 적용해 세부 구조와 색 복원 품질을 개선했습니다.',
+    results: [
+      'PSNR 최대 18.37dB · 평균 15.63dB',
+      'SSIM 최대 0.4604 · 평균 0.2181',
+      '학습 데이터에 포함되지 않은 과거 흑백 사진 컬러화 검증',
+    ],
+    presentationLink: '/documents/image-colorization-presentation.pdf',
+    reportLink: '/documents/image-colorization-report.pdf',
   },
 ];
 

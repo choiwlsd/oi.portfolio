@@ -25,7 +25,7 @@ export interface Project {
   link: string;
   year: string;
   featured?: boolean;
-  category?: 'Web' | 'AI' | 'Data' | 'UI/UX' | 'Others';
+  category?: 'Web' | 'AI' | 'Data' | '기획' | 'Others';
   duration?: string;
   team?: string[];
   technologies?: string[];
@@ -35,6 +35,8 @@ export interface Project {
   results?: string[];
   liveLink?: string;
   githubLink?: string;
+  presentationLink?: string;
+  reportLink?: string;
 }
 
 /**

@@ -4,8 +4,10 @@ import {
   ChevronLeft,
   ChevronRight,
   ExternalLink,
+  FileText,
   Github,
   Play,
+  Presentation,
 } from "lucide-react";
 import { useState } from "react";
 import { useRoute } from "wouter";
@@ -130,18 +132,42 @@ export default function ProjectDetail() {
                   <Github size={14} />
                 </a>
               )}
+
+              {project.presentationLink && (
+                <a
+                  href={project.presentationLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 border border-black px-5 py-3 text-xs font-bold uppercase transition hover:border-[#2f6dff] hover:text-[#2f6dff]"
+                >
+                  Presentation
+                  <Presentation size={14} />
+                </a>
+              )}
+
+              {project.reportLink && (
+                <a
+                  href={project.reportLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 border border-black px-5 py-3 text-xs font-bold uppercase transition hover:border-[#2f6dff] hover:text-[#2f6dff]"
+                >
+                  Report
+                  <FileText size={14} />
+                </a>
+              )}
             </div>
           </div>
 
           <div className="relative">
             <div className="overflow-hidden border border-black/15 bg-white">
               <button
-                onClick={openDemo}
+                onClick={() => project.reportLink ? window.open(project.reportLink, "_blank", "noopener,noreferrer") : openDemo()}
                 className="group relative block aspect-16/10 w-full overflow-hidden bg-neutral-100 text-left"
               >
                 <img src={project.image} alt={project.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" />
                 <span className="absolute bottom-5 right-5 grid h-14 w-14 place-items-center rounded-full bg-white text-black shadow-lg transition group-hover:bg-[#2f6dff] group-hover:text-white">
-                  <Play size={20} fill="currentColor" />
+                  {project.reportLink ? <FileText size={20} /> : <Play size={20} fill="currentColor" />}
                 </span>
               </button>
             </div>
@@ -194,7 +220,7 @@ export default function ProjectDetail() {
 
           <div className="grid gap-8 md:grid-cols-3">
             <button
-              onClick={openPresentation}
+              onClick={() => project.presentationLink ? window.open(project.presentationLink, "_blank", "noopener,noreferrer") : openPresentation()}
               className="group border-t border-black pt-4 text-left"
             >
               <div className="relative aspect-video overflow-hidden bg-neutral-100">
@@ -204,13 +230,13 @@ export default function ProjectDetail() {
                   className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
                 />
                 <span className="absolute left-4 top-4 rounded bg-white/90 px-3 py-1 text-xs font-black text-[#0868ff]">
-                  {presentationSlides.length} slides
+                  {project.presentationLink ? "PDF" : `${presentationSlides.length} slides`}
                 </span>
               </div>
               <div className="py-5">
                 <h3 className="text-xl font-black">Presentation</h3>
                 <p className="mt-2 text-sm leading-6 text-neutral-600">
-                  View exported PPT pages as a slide deck.
+                  {project.presentationLink ? "Open the complete presentation as a PDF." : "View exported PPT pages as a slide deck."}
                 </p>
               </div>
             </button>
@@ -238,11 +264,17 @@ export default function ProjectDetail() {
             </button>
 
             <button
-              onClick={openDemo}
+              onClick={() => project.reportLink ? window.open(project.reportLink, "_blank", "noopener,noreferrer") : openDemo()}
               className="group border-t border-black pt-4 text-left"
             >
               <div className="relative aspect-video overflow-hidden bg-neutral-100">
-                {demoMedia[0]?.type === "video" ? (
+                {project.reportLink ? (
+                  <img
+                    src={project.image}
+                    alt={`${project.title} report`}
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                  />
+                ) : demoMedia[0]?.type === "video" ? (
                   <div className="grid h-full w-full place-items-center bg-black text-white">
                     <Play size={42} fill="currentColor" />
                   </div>
@@ -254,13 +286,13 @@ export default function ProjectDetail() {
                   />
                 )}
                 <span className="absolute left-4 top-4 rounded bg-white/90 px-3 py-1 text-xs font-black text-[#0868ff]">
-                  {demoMedia.length} media
+                  {project.reportLink ? "PDF" : `${demoMedia.length} media`}
                 </span>
               </div>
               <div className="py-5">
-                <h3 className="text-xl font-black">Demo</h3>
+                <h3 className="text-xl font-black">{project.reportLink ? "Report" : "Demo"}</h3>
                 <p className="mt-2 text-sm leading-6 text-neutral-600">
-                  Watch demo video or browse demo screenshots.
+                  {project.reportLink ? "Read the full project report as a PDF." : "Watch demo video or browse demo screenshots."}
                 </p>
               </div>
             </button>

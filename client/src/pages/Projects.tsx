@@ -5,7 +5,7 @@ import { PROJECTS } from "@shared/portfolio";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const categories = ["All", "Web", "AI", "Data", "UI/UX", "Others"];
+const categories = ["All", "Web", "AI", "Data", "기획", "Others"];
 
 export default function ProjectsPage() {
   const requestedCategory = new URLSearchParams(window.location.search).get("category");
