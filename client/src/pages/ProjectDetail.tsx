@@ -1,7 +1,6 @@
 import {
   ArrowLeft,
   ArrowRight,
-  Check,
   ChevronLeft,
   ChevronRight,
   ExternalLink,
@@ -46,7 +45,7 @@ export default function ProjectDetail() {
 
   const previousProject = PROJECTS[(projectIndex - 1 + PROJECTS.length) % PROJECTS.length];
   const nextProject = PROJECTS[(projectIndex + 1) % PROJECTS.length];
-  const gallery = [project.image, ...(project.gallery ?? [])].filter(Boolean);
+  const gallery = Array.from(new Set([project.image, ...(project.gallery ?? [])].filter(Boolean)));
   const techStackImage = project.techStackImage ?? gallery[2] ?? gallery[0];
   const presentationSlides = (
     project.presentationSlides?.length ? project.presentationSlides : gallery
@@ -79,30 +78,29 @@ export default function ProjectDetail() {
   };
 
   return (
-    <div className="min-h-screen p-3 text-black">
+    <div className="relative min-h-screen overflow-x-hidden bg-[#fafaf8] text-black">
+      <div className="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.055)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.055)_1px,transparent_1px)] bg-size-[72px_72px]" />
       <Navbar />
 
-      <main className="px-5 pb-10 pt-28 md:px-8">
-        <a href="/projects" className="inline-flex items-center gap-2 text-xs font-bold text-neutral-600 hover:text-[#0868ff]">
+      <main className="relative z-10 mx-auto max-w-330 px-5 pb-28 pt-32 sm:px-8 md:pb-40 md:pt-40">
+        <a href="/projects" className="inline-flex items-center gap-2 text-xs font-bold text-neutral-500 transition hover:text-[#2f6dff]">
           <ArrowLeft size={14} />
           Back to Projects
         </a>
 
-        <section className="mt-6 grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-start">
-          <div>
-            <span className="mt-2 inline-flex rounded bg-[#e9f1ff] px-3 py-1 text-xs font-bold text-[#0868ff]">
-              {project.category}
-            </span>
+        <section className="mt-12 grid gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-start xl:gap-16">
+          <div className="max-w-xl">
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-[#2f6dff]">{project.category} · {project.year}</p>
 
-            <h1 className="mt-5 text-5xl font-black leading-tight">{project.title}</h1>
+            <h1 className="mt-7 text-[clamp(2.6rem,4.2vw,4.5rem)] font-black leading-[1.02] tracking-[-0.045em]">{project.title}<span className="text-[#2f6dff]">.</span></h1>
 
-            <p className="mt-6 max-w-md text-sm leading-7 text-neutral-700">
+            <p className="mt-8 max-w-2xl text-base leading-8 text-neutral-600">
               {project.shortDescription || project.description}
             </p>
 
-            <div className="mt-6 flex flex-wrap gap-2">
+            <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2">
               {project.tags?.map((tag) => (
-                <span key={tag} className="rounded bg-neutral-100 px-3 py-1.5 text-xs text-neutral-700">
+                <span key={tag} className="text-[11px] font-semibold uppercase tracking-[0.13em] text-neutral-500">
                   {tag}
                 </span>
               ))}
@@ -114,7 +112,7 @@ export default function ProjectDetail() {
                   href={project.liveLink}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded bg-black px-5 py-3 text-xs font-black uppercase text-white"
+                  className="inline-flex items-center gap-2 bg-black px-5 py-3 text-xs font-bold uppercase text-white transition hover:bg-[#2f6dff]"
                 >
                   Live Demo
                   <ExternalLink size={14} />
@@ -126,7 +124,7 @@ export default function ProjectDetail() {
                   href={project.githubLink}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded border border-neutral-300 bg-white px-5 py-3 text-xs font-black uppercase"
+                  className="inline-flex items-center gap-2 border border-black px-5 py-3 text-xs font-bold uppercase transition hover:border-[#2f6dff] hover:text-[#2f6dff]"
                 >
                   GitHub
                   <Github size={14} />
@@ -136,77 +134,70 @@ export default function ProjectDetail() {
           </div>
 
           <div className="relative">
-            <div className="overflow-hidden rounded-lg border border-neutral-300 bg-white p-2 shadow-xl">
+            <div className="overflow-hidden border border-black/15 bg-white">
               <button
                 onClick={openDemo}
-                className="group relative block h-90 w-full overflow-hidden bg-neutral-100 text-left md:h-112.5"
+                className="group relative block aspect-16/10 w-full overflow-hidden bg-neutral-100 text-left"
               >
                 <img src={project.image} alt={project.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" />
-                <span className="absolute left-1/2 top-1/2 grid h-20 w-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white text-black shadow-xl">
-                  <Play size={30} fill="currentColor" />
+                <span className="absolute bottom-5 right-5 grid h-14 w-14 place-items-center rounded-full bg-white text-black shadow-lg transition group-hover:bg-[#2f6dff] group-hover:text-white">
+                  <Play size={20} fill="currentColor" />
                 </span>
               </button>
             </div>
           </div>
         </section>
 
-        <section className="mt-12 grid gap-10 lg:grid-cols-[1fr_320px]">
-          <div>
-            <h2 className="text-xl font-black">Overview</h2>
-            <p className="mt-4 text-sm leading-7 text-neutral-700">
-              {project.description} The project focuses on practical execution, clear user flows, and a polished interface.
-            </p>
+        <section className="mt-20 grid gap-8 border-y border-black/20 py-10 sm:grid-cols-2 lg:grid-cols-4">
+          <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-neutral-400">Year</p><p className="mt-3 text-sm font-semibold">{project.year}</p></div>
+          <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-neutral-400">Duration</p><p className="mt-3 text-sm font-semibold">{project.duration ?? "—"}</p></div>
+          <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-neutral-400">Team</p><p className="mt-3 text-sm font-semibold">{project.team?.join(" · ") ?? "—"}</p></div>
+          <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-neutral-400">Stack</p><p className="mt-3 text-sm font-semibold leading-6">{(project.technologies ?? project.tags).join(" · ")}</p></div>
+        </section>
+
+        <section className="py-24">
+          <div className="grid gap-8 lg:grid-cols-[0.42fr_1.58fr] lg:gap-20">
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-neutral-500">Overview</p>
+            <p className="max-w-4xl text-2xl font-semibold leading-normal tracking-tight md:text-3xl">{project.description}</p>
+          </div>
+          <div className="mt-24 divide-y divide-black/15 border-y border-black/20">
+            {[
+              ["01", "Challenge", project.challenge],
+              ["02", "Approach", project.approach],
+              ["03", "Solution", project.solution],
+            ].map(([number, title, body]) => (
+              <article key={title} className="grid gap-5 py-12 md:grid-cols-[80px_220px_1fr]">
+                <span className="font-mono text-xs text-[#2f6dff]">{number}</span>
+                <h2 className="text-xl font-bold">{title}</h2>
+                <p className="max-w-2xl text-sm leading-7 text-neutral-600">{body ?? "Details will be added soon."}</p>
+              </article>
+            ))}
+          </div>
+          <div className="mt-20 grid gap-8 lg:grid-cols-[0.42fr_1.58fr] lg:gap-20">
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-neutral-500">Outcome</p>
+            <ol className="grid gap-8 md:grid-cols-3">
+              {results.map((result, index) => (
+                <li key={result} className="border-t border-black pt-5"><span className="font-mono text-xs text-[#2f6dff]">0{index + 1}</span><p className="mt-5 text-sm font-semibold leading-7">{result}</p></li>
+              ))}
+            </ol>
           </div>
         </section>
 
-        <section className="mt-12 grid gap-10 md:grid-cols-3">
-          <div>
-            <h2 className="text-xl font-black">My Role</h2>
-            <ul className="mt-5 space-y-3 text-sm">
-              {["Backend and AI model integration", "Frontend interface development", "Feedback logic and scoring system", "Deployment support"].map((item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <Check size={16} className="text-[#0868ff]" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h2 className="text-xl font-black">Keywords</h2>
-            <ul className="mt-5 space-y-3 text-sm">
-              {["Real-time pose estimation", "Posture evaluation and scoring", "Personalized feedback", "Progress tracking"].map((item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <Check size={16} className="text-[#0868ff]" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h2 className="text-xl font-black">Impact</h2>
-            <ul className="mt-4 space-y-2 text-sm leading-6 text-neutral-700">
-              {results.map((result) => (
-                <li key={result}>{result}</li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        <section className="mt-15">
-          <div className="mb-5 flex items-end justify-between gap-4">
+        <section className="border-t border-black pt-20">
+          <div className="mb-10 flex items-end justify-between gap-4">
             <div>
-              <p className="text-sm font-bold uppercase text-[#0868ff]">Media</p>
-              <h2 className="mt-2 text-2xl font-black">Presentation, Demo & Tech Stack</h2>
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#2f6dff]">Media</p>
+              <h2 className="mt-4 text-3xl font-black tracking-tight md:text-5xl">Explore the project.</h2>
             </div>
             <p className="text-xs font-semibold text-neutral-500">Click a card to open the viewer</p>
           </div>
 
-          <div className="grid gap-5 md:grid-cols-3">
+          <div className="grid gap-8 md:grid-cols-3">
             <button
               onClick={openPresentation}
-              className="group overflow-hidden rounded-xl border border-neutral-200 bg-white p-3 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+              className="group border-t border-black pt-4 text-left"
             >
-              <div className="relative aspect-video overflow-hidden rounded-lg bg-neutral-100">
+              <div className="relative aspect-video overflow-hidden bg-neutral-100">
                 <img
                   src={presentationSlides[currentSlide]}
                   alt={`${project.title} presentation`}
@@ -216,7 +207,7 @@ export default function ProjectDetail() {
                   {presentationSlides.length} slides
                 </span>
               </div>
-              <div className="px-2 py-4">
+              <div className="py-5">
                 <h3 className="text-xl font-black">Presentation</h3>
                 <p className="mt-2 text-sm leading-6 text-neutral-600">
                   View exported PPT pages as a slide deck.
@@ -226,9 +217,9 @@ export default function ProjectDetail() {
 
             <button
               onClick={openTechStack}
-              className="group overflow-hidden rounded-xl border border-neutral-200 bg-white p-3 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+              className="group border-t border-black pt-4 text-left"
             >
-              <div className="relative aspect-video overflow-hidden rounded-lg bg-neutral-100">
+              <div className="relative aspect-video overflow-hidden bg-neutral-100">
                 <img
                   src={techStackImage}
                   alt={`${project.title} tech stack`}
@@ -238,7 +229,7 @@ export default function ProjectDetail() {
                   Stack
                 </span>
               </div>
-              <div className="px-2 py-4">
+              <div className="py-5">
                 <h3 className="text-xl font-black">기술 스택</h3>
                 <p className="mt-2 text-sm leading-6 text-neutral-600">
                   View architecture, tools, and implementation stack as an image.
@@ -248,9 +239,9 @@ export default function ProjectDetail() {
 
             <button
               onClick={openDemo}
-              className="group overflow-hidden rounded-xl border border-neutral-200 bg-white p-3 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+              className="group border-t border-black pt-4 text-left"
             >
-              <div className="relative aspect-video overflow-hidden rounded-lg bg-neutral-100">
+              <div className="relative aspect-video overflow-hidden bg-neutral-100">
                 {demoMedia[0]?.type === "video" ? (
                   <div className="grid h-full w-full place-items-center bg-black text-white">
                     <Play size={42} fill="currentColor" />
@@ -266,7 +257,7 @@ export default function ProjectDetail() {
                   {demoMedia.length} media
                 </span>
               </div>
-              <div className="px-2 py-4">
+              <div className="py-5">
                 <h3 className="text-xl font-black">Demo</h3>
                 <p className="mt-2 text-sm leading-6 text-neutral-600">
                   Watch demo video or browse demo screenshots.
@@ -276,8 +267,8 @@ export default function ProjectDetail() {
           </div>
         </section>
 
-        <section className="mt-20 grid gap-4 md:grid-cols-2">
-          <a href={`/projects/${previousProject.id}`} className="group rounded-lg border border-neutral-200 bg-white p-3 transition hover:shadow-md">
+        <section className="mt-28 grid gap-px border-y border-black bg-black md:grid-cols-2">
+          <a href={`/projects/${previousProject.id}`} className="group bg-[#fafaf8] p-7 transition hover:bg-white">
             <p className="text-[11px] font-bold text-neutral-500">Previous Project</p>
             <div className="mt-3 flex items-center justify-between">
               <ArrowLeft className="h-4 w-4 transition group-hover:-translate-x-1" />
@@ -288,7 +279,7 @@ export default function ProjectDetail() {
             </div>
           </a>
 
-          <a href={`/projects/${nextProject.id}`} className="group rounded-lg border border-neutral-200 bg-white p-3 transition hover:shadow-md">
+          <a href={`/projects/${nextProject.id}`} className="group bg-[#fafaf8] p-7 transition hover:bg-white">
             <p className="text-[11px] font-bold text-neutral-500">Next Project</p>
             <div className="mt-3 flex items-center justify-between">
               <div>
@@ -430,7 +421,7 @@ export default function ProjectDetail() {
         </div>
       )}
 
-      <Footer />
+      <div className="relative z-10"><Footer /></div>
     </div>
   );
 }
