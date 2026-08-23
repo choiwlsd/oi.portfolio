@@ -34,6 +34,18 @@ export default function AboutPage() {
         </section>
 
         <section className="grid gap-8 border-t border-black/20 py-20 lg:grid-cols-[0.5fr_1.5fr] lg:gap-20">
+          <h2 className="text-xs font-bold uppercase tracking-[0.22em] text-neutral-500">Interests</h2>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {ABOUT_CONTENT.interests.map((interest, index) => (
+              <div key={interest} className="flex min-h-40 flex-col justify-between border border-black/20 bg-[#fafaf8]/80 p-6 backdrop-blur-[2px] md:min-h-48 md:p-8">
+                <span className="font-mono text-xs text-[#2f6dff]">0{index + 1}</span>
+                <p className="mt-10 text-xl font-bold leading-tight tracking-tight md:text-2xl">{interest}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="grid gap-8 border-t border-black/20 py-20 lg:grid-cols-[0.5fr_1.5fr] lg:gap-20">
           <h2 className="text-xs font-bold uppercase tracking-[0.22em] text-neutral-500">Experience</h2>
           <div className="space-y-14">
             {ABOUT_CONTENT.experience.map((item) => (
