@@ -7,7 +7,6 @@ import {
   ExternalLink,
   FileText,
   Github,
-  Layers3,
   Play,
   Presentation,
 } from "lucide-react";
@@ -17,7 +16,7 @@ import { PROJECTS } from "@shared/portfolio";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-type ViewerMode = "presentation" | "presentationPdf" | "reportPdf" | "demo" | "techStack" | null;
+type ViewerMode = "presentation" | "presentationPdf" | "reportPdf" | "demo" | null;
 
 export default function ProjectDetail() {
   const [match, params] = useRoute("/projects/:id");
@@ -71,7 +70,6 @@ export default function ProjectDetail() {
   const previousProject = PROJECTS[(projectIndex - 1 + PROJECTS.length) % PROJECTS.length];
   const nextProject = PROJECTS[(projectIndex + 1) % PROJECTS.length];
   const gallery = Array.from(new Set([project.image, ...(project.gallery ?? [])].filter(Boolean)));
-  const techStackImage = project.techStackImage ?? gallery[2] ?? gallery[0];
   const presentationSlides = (
     project.presentationSlides?.length ? project.presentationSlides : gallery
   ).filter(Boolean);
@@ -97,10 +95,6 @@ export default function ProjectDetail() {
   const openDemo = () => {
     setActiveDemo(0);
     setViewerMode("demo");
-  };
-
-  const openTechStack = () => {
-    setViewerMode("techStack");
   };
 
   return (
@@ -196,11 +190,10 @@ export default function ProjectDetail() {
           </div>
         </section>
 
-        <section className="mt-20 grid gap-8 border-y border-black/20 py-10 sm:grid-cols-2 lg:grid-cols-4">
+        <section className="mt-20 grid gap-8 border-y border-black/20 py-10 sm:grid-cols-3">
           <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-neutral-400">Year</p><p className="mt-3 text-sm font-semibold">{project.year}</p></div>
           <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-neutral-400">Duration</p><p className="mt-3 text-sm font-semibold">{project.duration ?? "—"}</p></div>
           <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-neutral-400">Team</p><p className="mt-3 text-sm font-semibold">{project.team?.join(" · ") ?? "—"}</p></div>
-          <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-neutral-400">Stack</p><p className="mt-3 text-sm font-semibold leading-6">{(project.technologies ?? project.tags).join(" · ")}</p></div>
         </section>
 
         <section className="py-24">
@@ -240,25 +233,16 @@ export default function ProjectDetail() {
             <p className="text-xs font-semibold text-neutral-500">Click a card to open the viewer</p>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-3">
+          <div className="grid gap-8 md:grid-cols-2">
             <button
               onClick={() => hasPresentationPdf ? setViewerMode("presentationPdf") : openPresentation()}
               className="group border-t border-black pt-4 text-left"
             >
               <div className="relative aspect-video overflow-hidden bg-neutral-100">
-                {hasPresentationPdf ? (
-                  <div className="flex h-full flex-col justify-between bg-white p-6 transition group-hover:bg-[#f4f7ff]">
-                    <div className="flex items-start justify-between"><Presentation size={28} strokeWidth={1.5} className="text-[#2f6dff]" /><span className="font-mono text-[10px] font-bold tracking-[0.16em] text-neutral-400">PDF</span></div>
-                    <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#2f6dff]">Presentation</p><p className="mt-2 line-clamp-2 text-lg font-bold leading-tight">{project.title}</p></div>
-                  </div>
-                ) : (
-                  <img
-                    src={presentationSlides[currentSlide]}
-                    alt={`${project.title} presentation`}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                  />
-                )}
-                {!hasPresentationPdf && <span className="absolute left-4 top-4 rounded bg-white/90 px-3 py-1 text-xs font-black text-[#0868ff]">{presentationSlides.length} slides</span>}
+                <div className="flex h-full flex-col justify-between bg-white p-6 transition group-hover:bg-[#f4f7ff]">
+                  <div className="flex items-start justify-between"><Presentation size={28} strokeWidth={1.5} className="text-[#2f6dff]" /><span className="font-mono text-[10px] font-bold tracking-[0.16em] text-neutral-400">{hasPresentationPdf ? "PDF" : "SLIDES"}</span></div>
+                  <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#2f6dff]">Presentation</p><p className="mt-2 line-clamp-2 text-lg font-bold leading-tight">{project.title}</p></div>
+                </div>
               </div>
               <div className="py-5">
                 <h3 className="text-xl font-black">Presentation</h3>
@@ -269,51 +253,14 @@ export default function ProjectDetail() {
             </button>
 
             <button
-              onClick={openTechStack}
-              className="group border-t border-black pt-4 text-left"
-            >
-              <div className="relative aspect-video overflow-hidden bg-neutral-100">
-                <div className="flex h-full flex-col justify-between bg-[#2f6dff] p-6 text-white transition group-hover:bg-[#1f55d9]">
-                  <div className="flex items-start justify-between">
-                    <Layers3 size={28} strokeWidth={1.5} />
-                    <span className="font-mono text-[10px] font-bold tracking-[0.16em] text-white/60">IMAGE</span>
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/60">Technology Stack</p>
-                    <p className="mt-2 line-clamp-2 text-lg font-bold leading-tight">{project.title}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="py-5">
-                <h3 className="text-xl font-black">기술 스택</h3>
-                <p className="mt-2 text-sm leading-6 text-neutral-600">
-                  View architecture, tools, and implementation stack as an image.
-                </p>
-              </div>
-            </button>
-
-            <button
               onClick={() => hasReportPdf ? setViewerMode("reportPdf") : openDemo()}
               className="group border-t border-black pt-4 text-left"
             >
               <div className="relative aspect-video overflow-hidden bg-neutral-100">
-                {hasReportPdf ? (
-                  <div className="flex h-full flex-col justify-between bg-[#111] p-6 text-white transition group-hover:bg-[#2f6dff]">
-                    <div className="flex items-start justify-between"><FileText size={28} strokeWidth={1.5} /><span className="font-mono text-[10px] font-bold tracking-[0.16em] text-white/60">PDF</span></div>
-                    <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/60">Project Report</p><p className="mt-2 line-clamp-2 text-lg font-bold leading-tight">{project.title}</p></div>
-                  </div>
-                ) : demoMedia[0]?.type === "video" ? (
-                  <div className="grid h-full w-full place-items-center bg-black text-white">
-                    <Play size={42} fill="currentColor" />
-                  </div>
-                ) : (
-                  <img
-                    src={demoMedia[0]?.src}
-                    alt={`${project.title} demo`}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                  />
-                )}
-                {!hasReportPdf && <span className="absolute left-4 top-4 rounded bg-white/90 px-3 py-1 text-xs font-black text-[#0868ff]">{demoMedia.length} media</span>}
+                <div className="flex h-full flex-col justify-between bg-[#111] p-6 text-white transition group-hover:bg-[#2f6dff]">
+                  <div className="flex items-start justify-between"><FileText size={28} strokeWidth={1.5} /><span className="font-mono text-[10px] font-bold tracking-[0.16em] text-white/60">{hasReportPdf ? "PDF" : "MEDIA"}</span></div>
+                  <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/60">{hasReportPdf ? "Project Report" : "Demo Preview"}</p><p className="mt-2 line-clamp-2 text-lg font-bold leading-tight">{project.title}</p></div>
+                </div>
               </div>
               <div className="py-5">
                 <h3 className="text-xl font-black">{hasReportPdf ? "Report" : "Demo"}</h3>
@@ -420,14 +367,6 @@ export default function ProjectDetail() {
                     ))}
                   </div>
                 </>
-              ) : viewerMode === "techStack" ? (
-                <div className="bg-neutral-100">
-                  <img
-                    src={techStackImage}
-                    alt={`${project.title} technology stack`}
-                    className="max-h-[70vh] w-full object-contain"
-                  />
-                </div>
               ) : (
                 <div className="grid gap-4 p-4 lg:grid-cols-[1fr_220px]">
                   <div className="overflow-hidden rounded-xl border border-neutral-200 bg-black">
@@ -483,9 +422,7 @@ export default function ProjectDetail() {
                       ? "Report PDF"
                     : viewerMode === "presentation"
                     ? `${currentSlide + 1} / ${presentationSlides.length}`
-                    : viewerMode === "demo"
-                      ? `${currentDemo + 1} / ${demoMedia.length}`
-                      : "기술 스택"}
+                    : `${currentDemo + 1} / ${demoMedia.length}`}
                 </span>
                 <span>Click outside to close</span>
               </div>

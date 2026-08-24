@@ -14,7 +14,6 @@ export interface Project {
   image: string;
   gallery?: string[];
   presentationSlides?: string[];
-  techStackImage?: string;
   demoMedia?: {
     type: 'image' | 'video';
     src: string;
@@ -28,7 +27,6 @@ export interface Project {
   category?: 'Web' | 'AI' | 'Data' | '기획' | 'Others';
   duration?: string;
   team?: string[];
-  technologies?: string[];
   challenge?: string;
   approach?: string;
   solution?: string;

@@ -6,26 +6,33 @@
  */
 import type { Project } from '../types';
 import { PROFILE } from './site';
-import defaultProjectCover from '../../client/src/assets/project-default.png';
-import imageColorizationCover from '../../client/src/assets/image-colorization-cover.png';
-import temporaryResidentialFacilities from '../../client/src/assets/temporary-residential-facilities.png';
+import defaultProjectCover from '../../client/src/assets/projects/project-default.png';
+import imageColorizationCover from '../../client/src/assets/projects/image-colorization-cover.png';
+import temporaryResidentialFacilities from '../../client/src/assets/projects/temporary-residential-facilities.png';
+import khuthon2024Demo from '../../client/src/assets/projects/khuthon2024-demo.gif';
+import khuthon2024HW from '../../client/src/assets/projects/khuthon2024-hw.png';
+import khuthon2024Structure from '../../client/src/assets/projects/khuthon2024-structure.png';
+import poseAgentDuetPlay from '../../client/src/assets/projects/pose-agent/duet-play-page.png';
+import poseAgentFocusedLesson from '../../client/src/assets/projects/pose-agent/focused-lesson-repeat.mp4';
+import poseAgentHome from '../../client/src/assets/projects/pose-agent/home-page.png';
+import poseAgentPlay from '../../client/src/assets/projects/pose-agent/play-page.png';
+import poseWebcam from '../../client/src/assets/projects/pose-agent/web-cam.png';
 
 export const PROJECTS: Project[] = [
   {
     id: '1',
     title: 'Pose-Agent',
     description: '[캡스톤디자인] 자율협력지원 Agentic AI: 협주 가능 악기 레슨 Agent AI 플랫폼 기술 개발',
-    shortDescription: '협주가능 악기 레슨 Agent AI 플랫폼',
-    image: defaultProjectCover,
-    gallery: [defaultProjectCover],
-    tags: ['Python', 'MediaPipe', 'AI'],
+    shortDescription: '협주가능 악기 레슨 Agent AI 플랫폼: Pose Agent',
+    image: poseWebcam,
+    gallery: [poseAgentHome, poseAgentPlay, poseAgentDuetPlay, poseAgentFocusedLesson, poseWebcam],
+    tags: ['Python', 'MediaPipe', 'AI', 'Multi-Agent System', 'Real-time Feedback'],
     link: '/projects/1',
     year: '2025',
     featured: true,
     category: 'AI',
     duration: 'Jan 2025 - May 2025',
     team: [PROFILE.name, 'Team Members'],
-    technologies: ['Python', 'MediaPipe', 'OpenCV', 'PyTorch', 'TCN', 'CNN'],
     challenge: 'Create a real-time music learning AI system that analyzes user performance and provides integrated feedback on pitch, rhythm, and posture.',
     approach: 'Implemented multi-agent architecture where each agent handles specific aspects (Pose, Pitch, Rhythm) and collaborates for comprehensive feedback.',
     solution: 'Developed Pose Agent using MediaPipe for pose estimation, TCN for posture classification, and rule-based feedback generation for real-time analysis.',
@@ -36,11 +43,23 @@ export const PROJECTS: Project[] = [
     ],
     liveLink: 'https://github.com/choiwlsd/Pose-Agent',
     githubLink: 'https://github.com/choiwlsd/Pose-Agent',
+    demoMedia: [
+      { type: 'image', src: poseWebcam, title: '웹캠' },
+      { type: 'image', src: poseAgentHome, title: '홈화면' },
+      { type: 'image', src: poseAgentPlay, title: '개별 레슨' },
+      { type: 'image', src: poseAgentDuetPlay, title: '협주 모드' },
+      {
+        type: 'video',
+        src: poseAgentFocusedLesson,
+        poster: poseAgentPlay,
+        title: '집중 반복 레슨',
+      },
+    ],
   },
 
   {
     id: '2',
-    title: 'KHUTHON 2025 - Micro Fertilizer Trading Platform',
+    title: 'KHUTHON 2025 - ESG 마이크로 비료 거래 플랫폼',
     description: '🏆KHUTHON 최우수상 수상작: 마이크로 비료 거래 플랫폼',
     shortDescription: 'Micro fertilizer trading platform',
     image: 'https://cdn.phototourl.com/free/2026-05-13-edd55c19-479e-498c-966e-645a5d4d33bc.png',
@@ -52,7 +71,6 @@ export const PROJECTS: Project[] = [
     category: 'Web',
     duration: 'Mar 2025 - May 2025',
     team: ['Frontend Developer', 'Backend Developer', 'Designer'],
-    technologies: ['JavaScript', 'React', 'Node.js', 'MongoDB'],
     challenge: 'Build a platform for farmers to buy and sell micro fertilizers efficiently.',
     approach: 'Created a user-friendly marketplace with real-time inventory management and secure transactions.',
     solution: 'Developed full-stack web application with React frontend and Node.js backend.',
@@ -67,7 +85,7 @@ export const PROJECTS: Project[] = [
 
   {
     id: '3',
-    title: 'Semothon 2025 - Classroom Rental Platform',
+    title: '세모톤 2025 - 강의실 대여 플랫폼',
     description: '🏆세모톤 대상 수상작: 강의실 대여 플랫폼',
     shortDescription: 'Classroom rental platform',
     image: 'https://cdn.phototourl.com/free/2026-05-13-1843cd55-a60c-47bd-ba6b-435c426a1246.png',
@@ -79,7 +97,6 @@ export const PROJECTS: Project[] = [
     category: 'Web',
     duration: 'Apr 2025 - Apr 2025',
     team: ['Frontend Developer', 'UI/UX Designer'],
-    technologies: ['JavaScript', 'React', 'TypeScript', 'CSS'],
     challenge: 'Design and develop a platform for university classroom reservations.',
     approach: 'Built responsive web interface with intuitive booking system and real-time availability.',
     solution: 'Created modern React application with TypeScript.',
@@ -94,24 +111,31 @@ export const PROJECTS: Project[] = [
 
   {
     id: '4',
-    title: 'KHUTHON 2024 - Personal Power Monitoring System',
-    description: '🏆KHUTHON 우수상/인기상 수상작: 개인화된 전력 모니터링 시스템',
-    shortDescription: 'Personal power monitoring system',
-    image: defaultProjectCover,
-    gallery: [defaultProjectCover],
-    tags: ['JavaScript', 'React', 'IoT'],
+    title: '소형화 및 개인화 전력 모니터링 시스템',
+    description: 'KHUTHON 2024 우수상·인기상 수상작으로, 가상 측정 하드웨어와 실시간 웹 대시보드를 연결해 전체 전력량뿐 아니라 콘센트별 소비 전력을 분석하는 시스템입니다.',
+    shortDescription: '콘센트별 소비 전력을 실시간으로 분석하는 개인화 모니터링 시스템',
+    image: khuthon2024HW,
+    gallery: [khuthon2024Structure, khuthon2024Demo],
+    tags: ['React', 'Flask', 'Socket'],
     link: '/projects/4',
     year: '2024',
     featured: false,
-    category: 'Data',
-    duration: 'May 2024 - May 2024',
-    team: ['Developer', 'Designer'],
-    technologies: ['JavaScript', 'React', 'IoT'],
-    challenge: 'Create a system to monitor and optimize household electricity consumption.',
-    approach: 'Developed IoT-integrated web application.',
-    solution: 'Built dashboard with charts and analytics.',
+    category: 'Web',
+    duration: 'May 2024',
+    team: ['Hackathon team'],
+    challenge: '기존 소규모 전력 모니터링 서비스는 공간 전체 사용량만 보여주기 때문에 어떤 콘센트와 기기가 전력을 많이 소비하는지 파악하기 어려웠습니다.',
+    approach: '콘센트에 연결되는 측정 장치를 가상 하드웨어 클라이언트로 모델링하고, 각 장치가 측정한 데이터를 TCP 소켓을 통해 로컬 서버로 주기적으로 전송하도록 설계했습니다.',
+    solution: '다중 스레드 소켓 서버와 Flask API가 여러 장치의 전력 데이터를 처리하고, React·Highcharts 대시보드가 총사용량, 예상 요금, 최대 사용 기기와 장치별 변화를 실시간으로 시각화하도록 구현했습니다.',
     results: [
-      'Won Excellence Award and Popularity Award at KHUTHON 2024',
+      'KHUTHON 2024 우수상·인기상 수상',
+      '10개의 가상 하드웨어 클라이언트 동시 연결 및 데이터 수집',
+      '콘센트별 사용량·평균·최대 사용 시간·에너지 등급 시각화',
+    ],
+    githubLink: 'https://github.com/choiwlsd/khuthon2024',
+    demoMedia: [
+      { type: 'video', src: '/projects/4/demo.mp4', title: 'Power monitoring demo' },
+      { type: 'image', src: khuthon2024Demo, title: 'Dashboard preview' },
+      { type: 'image', src: khuthon2024Structure, title: 'System architecture' },
     ],
   },
 
@@ -129,7 +153,6 @@ export const PROJECTS: Project[] = [
     category: 'AI',
     duration: 'Apr 2024 - Apr 2024',
     team: ['Solo'],
-    technologies: ['Python', 'AI Models', 'Video Processing'],
     challenge: 'Create a service that generates cover song videos using AI.',
     approach: 'Integrated multiple AI models.',
     solution: 'Built end-to-end AI music video pipeline.',
@@ -145,14 +168,13 @@ export const PROJECTS: Project[] = [
     shortDescription: '재난 상황에 대비한 데이터 기반 임시주거시설 입지 추천',
     image: temporaryResidentialFacilities,
     gallery: [temporaryResidentialFacilities],
-    tags: ['Python', 'HDBSCAN', 'p-median'],
+    tags: ['HDBSCAN', 'U-MAP', 'p-median'],
     link: '/projects/6',
     year: '2024',
     featured: false,
     category: 'Data',
     duration: 'May 2024 - Jun 2024',
     team: ['KHUDA Data Business Analysis Team'],
-    technologies: ['Python', 'PCA', 'UMAP', 'HDBSCAN', 'p-median', 'QGIS', 'OSMnx', 'GeoJSON'],
     challenge: '기존 임시주거시설 중 숙박시설과 내진 설계 시설의 비율이 낮고, 지역 규모·인구·재난 위험·생활 인프라를 함께 고려한 시설 지정 기준이 부족했습니다.',
     approach: '건축물대장, 병원·편의시설, 지진·산불 데이터를 전처리하고 PCA와 UMAP으로 차원을 축소한 뒤 HDBSCAN으로 불규칙한 밀도의 지역 데이터를 군집화했습니다.',
     solution: '시설별 적합성 점수를 산출해 클러스터별 상위 후보를 추출하고, 인구 밀도 중심과 숙박시설 간 이동 비용을 최소화하는 p-median 모델로 추가 임시주거시설을 선정했습니다.',
@@ -177,7 +199,6 @@ export const PROJECTS: Project[] = [
     category: 'AI',
     duration: '2024',
     team: ['4-person team'],
-    technologies: ['Python', 'Pix2Pix', 'CWGAN', 'U-Net', 'VGG19', 'OpenCV'],
     challenge: '흑백 사진의 밝기와 구조는 유지하면서 자연스럽고 일관된 색상 정보를 자동으로 복원하고, 제한된 데이터와 낮은 출력 품질 문제를 개선해야 했습니다.',
     approach: 'Pix2Pix에서 시작해 25,000쌍의 LAB 데이터로 CWGAN을 실험하고, 최종적으로 7,129쌍의 풍경 이미지와 VGG19 perceptual loss를 적용한 U-Net 모델로 발전시켰습니다.',
     solution: '입력 해상도를 320×320으로 높이고, convolution 범위와 batch size를 조정했으며, 학습률 스케줄러와 perceptual loss를 적용해 세부 구조와 색 복원 품질을 개선했습니다.',
