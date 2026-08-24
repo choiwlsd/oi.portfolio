@@ -38,19 +38,19 @@ export default function AwardsPage() {
       <Navbar />
 
       <main className="relative z-10 mx-auto max-w-375 px-5 pb-28 pt-32 sm:px-8 md:pb-40 md:pt-44">
-        <header className="grid gap-12 border-b border-black pb-16 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+        <header className="grid gap-12 border-b border-black pb-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-end lg:gap-20">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#2f6dff]">Awards & Recognition</p>
             <h1 className="mt-8 text-[clamp(4rem,10vw,9rem)] font-black leading-[0.82] tracking-[-0.07em]">
               Selected<br />Awards<span className="text-[#2f6dff]">.</span>
             </h1>
           </div>
-          <div className="max-w-2xl lg:translate-x-6 lg:justify-self-end">
-            <Trophy className="text-[#2f6dff]" size={30} strokeWidth={1.5} />
-            <p className="mt-7 text-xl font-bold leading-8">
+          <div className="w-full max-w-2xl text-right lg:justify-self-end">
+            <Trophy className="ml-auto text-[#2f6dff]" size={34} strokeWidth={1.5} />
+            <p className="ml-auto mt-8 max-w-xl text-xl font-bold leading-8 md:leading-10">
               아이디어를 실제 서비스로 구현하고, 결과로 증명한 기록입니다.
             </p>
-            <p className="mt-5 text-sm leading-7 text-neutral-600">
+            <p className="ml-auto mt-5 max-w-xl text-sm leading-7 text-neutral-600">
               해커톤과 프로젝트에서 받은 주요 수상 경력을 관련 작업과 함께 정리했습니다.
             </p>
           </div>
