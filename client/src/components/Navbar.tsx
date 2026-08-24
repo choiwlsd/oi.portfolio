@@ -13,13 +13,17 @@
 
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import { NAV_ITEMS, SOCIAL_LINKS } from '@shared/portfolio';
+import { useLocation } from 'wouter';
+import { NAV_ITEMS } from '@shared/portfolio';
 import SocialLinks from './SocialLinks';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [location] = useLocation();
 
   const toggleMenu = () => setIsOpen(!isOpen);
+  const isActive = (href: string) =>
+    href === '/' ? location === href : location === href || location.startsWith(`${href}/`);
 
   return (
     <nav className="fixed left-0 right-0 top-0 z-50 border-b border-black/10 bg-[#fafaf8]">
@@ -35,15 +39,24 @@ export default function Navbar() {
           <div className="hidden md:flex flex-1 justify-end items-center gap-20">
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-10">
-              {NAV_ITEMS.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
-                >
-                  {item.label}
-                </a>
-              ))}
+              {NAV_ITEMS.map((item) => {
+                const active = isActive(item.href);
+
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    aria-current={active ? 'page' : undefined}
+                    className={`relative py-2 text-sm font-medium transition-colors after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5 after:origin-left after:bg-[#2f6dff] after:transition-transform ${
+                      active
+                        ? 'text-[#2f6dff] after:scale-x-100'
+                        : 'text-gray-700 after:scale-x-0 hover:text-[#2f6dff] hover:after:scale-x-100'
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                );
+              })}
             </div>
 
             {/* Desktop Social Links */}
@@ -66,16 +79,25 @@ export default function Navbar() {
         {isOpen && (
           <div className="border-t border-black/10 bg-[#fafaf8] md:hidden">
             <div className="px-4 py-4 space-y-3">
-              {NAV_ITEMS.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="block text-gray-700 hover:text-primary transition-colors py-2"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ))}
+              {NAV_ITEMS.map((item) => {
+                const active = isActive(item.href);
+
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    aria-current={active ? 'page' : undefined}
+                    className={`block border-l-2 py-2 pl-3 transition-colors ${
+                      active
+                        ? 'border-[#2f6dff] font-semibold text-[#2f6dff]'
+                        : 'border-transparent text-gray-700 hover:text-[#2f6dff]'
+                    }`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.label}
+                  </a>
+                );
+              })}
               <div className="flex gap-4 border-t border-black/10 pt-4">
                 <SocialLinks />
               </div>
