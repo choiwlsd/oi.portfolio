@@ -1,7 +1,7 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { ArrowUpRight, ChevronLeft, ChevronRight, Github, Images, Trophy, X } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'wouter';
 import { AWARDS } from '@shared/portfolio';
 
@@ -15,6 +15,22 @@ export default function AwardsPage() {
     setGalleryAwardIndex(awardIndex);
     setGalleryImageIndex(0);
   };
+
+  useEffect(() => {
+    if (galleryAwardIndex === null) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setGalleryAwardIndex(null);
+    };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', closeOnEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [galleryAwardIndex]);
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-[#fafaf8] text-black">
@@ -138,31 +154,66 @@ export default function AwardsPage() {
 
       {galleryAward && galleryAward.gallery.length > 0 && (
         <div
-          className="fixed inset-0 z-100 grid place-items-center bg-black/80 p-4 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${galleryAward.title} 수상 사진 갤러리`}
+          className="fixed inset-0 z-100 bg-[#0b0b0b]/95 px-4 py-4 text-white backdrop-blur-md sm:px-7 sm:py-7"
           onClick={() => setGalleryAwardIndex(null)}
         >
-          <div className="w-full max-w-5xl overflow-hidden bg-white" onClick={(event) => event.stopPropagation()}>
-            <div className="flex items-center justify-between border-b border-black/10 px-5 py-4">
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#2f6dff]">Award Gallery</p>
-                <h2 className="mt-1 font-bold">{galleryAward.title}</h2>
+          <div className="mx-auto flex h-full max-w-375 flex-col" onClick={(event) => event.stopPropagation()}>
+            <div className="flex shrink-0 items-start justify-between border-b border-white/15 pb-4">
+              <div className="flex items-center gap-5">
+                <span className="font-mono text-xs text-[#70a0ff]">{String(galleryImageIndex + 1).padStart(2, '0')} / {String(galleryAward.gallery.length).padStart(2, '0')}</span>
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Award archive</p>
+                  <h2 className="mt-1 text-sm font-bold sm:text-base">{galleryAward.title}</h2>
+                </div>
               </div>
-              <button type="button" onClick={() => setGalleryAwardIndex(null)} aria-label="갤러리 닫기" className="grid h-10 w-10 place-items-center bg-black text-white transition hover:bg-[#2f6dff]">
-                <X size={18} />
+              <button type="button" onClick={() => setGalleryAwardIndex(null)} aria-label="갤러리 닫기" className="grid h-11 w-11 shrink-0 place-items-center border border-white/20 text-white transition hover:border-[#2f6dff] hover:bg-[#2f6dff]">
+                <X size={19} />
               </button>
             </div>
-            <div className="relative flex min-h-80 items-center justify-center bg-neutral-100 md:min-h-150">
-              <img src={galleryAward.gallery[galleryImageIndex]} alt={`${galleryAward.title} 수상 사진 ${galleryImageIndex + 1}`} className="max-h-[72vh] w-full object-contain" />
-              {galleryAward.gallery.length > 1 && (
-                <>
-                  <button type="button" onClick={() => setGalleryImageIndex((current) => (current - 1 + galleryAward.gallery.length) % galleryAward.gallery.length)} aria-label="이전 사진" className="absolute left-4 grid h-11 w-11 place-items-center bg-white shadow transition hover:bg-[#2f6dff] hover:text-white"><ChevronLeft size={20} /></button>
-                  <button type="button" onClick={() => setGalleryImageIndex((current) => (current + 1) % galleryAward.gallery.length)} aria-label="다음 사진" className="absolute right-4 grid h-11 w-11 place-items-center bg-white shadow transition hover:bg-[#2f6dff] hover:text-white"><ChevronRight size={20} /></button>
-                </>
-              )}
-            </div>
-            <div className="flex items-center justify-between px-5 py-4 text-xs font-bold text-neutral-500">
-              <span>{galleryAward.result}</span>
-              <span>{galleryImageIndex + 1} / {galleryAward.gallery.length}</span>
+
+            <div className="grid min-h-0 flex-1 gap-5 py-5 lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-8">
+              <div className="relative flex min-h-0 items-center justify-center overflow-hidden bg-white/[0.035]">
+                <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-size-[48px_48px]" />
+                <img
+                  key={galleryAward.gallery[galleryImageIndex]}
+                  src={galleryAward.gallery[galleryImageIndex]}
+                  alt={`${galleryAward.title} 수상 사진 ${galleryImageIndex + 1}`}
+                  className="relative max-h-full max-w-full object-contain p-3 drop-shadow-2xl sm:p-8"
+                />
+                {galleryAward.gallery.length > 1 && (
+                  <div className="absolute inset-x-3 top-1/2 flex -translate-y-1/2 justify-between sm:inset-x-5">
+                    <button type="button" onClick={() => setGalleryImageIndex((current) => (current - 1 + galleryAward.gallery.length) % galleryAward.gallery.length)} aria-label="이전 사진" className="grid h-11 w-11 place-items-center border border-white/20 bg-black/65 text-white backdrop-blur transition hover:border-[#2f6dff] hover:bg-[#2f6dff]"><ChevronLeft size={20} /></button>
+                    <button type="button" onClick={() => setGalleryImageIndex((current) => (current + 1) % galleryAward.gallery.length)} aria-label="다음 사진" className="grid h-11 w-11 place-items-center border border-white/20 bg-black/65 text-white backdrop-blur transition hover:border-[#2f6dff] hover:bg-[#2f6dff]"><ChevronRight size={20} /></button>
+                  </div>
+                )}
+              </div>
+
+              <aside className="flex min-h-0 flex-col border-t border-white/15 pt-5 lg:border-l lg:border-t-0 lg:pl-7 lg:pt-0">
+                <div>
+                  <p className="font-mono text-xs text-[#70a0ff]">{galleryAward.date}</p>
+                  <p className="mt-4 text-2xl font-black leading-tight">{galleryAward.result}</p>
+                  <p className="mt-3 text-sm font-bold text-white/75">{galleryAward.project}</p>
+                  <p className="mt-5 text-xs leading-6 text-white/45">{galleryAward.organizer}</p>
+                </div>
+
+                <div className="mt-6 flex gap-2 overflow-x-auto pb-1 lg:mt-auto lg:grid lg:grid-cols-3">
+                  {galleryAward.gallery.map((image, index) => (
+                    <button
+                      type="button"
+                      key={`${image}-${index}`}
+                      onClick={() => setGalleryImageIndex(index)}
+                      aria-label={`${index + 1}번째 사진 보기`}
+                      className={`relative h-16 w-24 shrink-0 overflow-hidden border p-1 transition lg:h-auto lg:w-auto lg:aspect-square ${galleryImageIndex === index ? 'border-[#2f6dff]' : 'border-white/15 opacity-45 hover:opacity-100'}`}
+                    >
+                      <img src={image} alt="" className="h-full w-full object-cover" />
+                      <span className="absolute bottom-1 right-1 bg-black/75 px-1.5 py-0.5 font-mono text-[9px]">{String(index + 1).padStart(2, '0')}</span>
+                    </button>
+                  ))}
+                </div>
+              </aside>
             </div>
           </div>
         </div>

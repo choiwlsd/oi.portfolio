@@ -6,6 +6,12 @@
  */
 
 import khuthon2025 from '@/assets/awards/khuthon-2025.png';
+import digitalcompetition20261 from '@/assets/awards/digital-competition-2026-1.png';
+import digitalcompetition20262 from '@/assets/awards/digital-competition-2026-2.png';
+import digitalcompetition20263 from '@/assets/awards/digital-competition-2026-3.png';
+import digitalcompetition20264 from '@/assets/awards/digital-competition-2026-4.png';
+
+
 
 
 
@@ -33,7 +39,7 @@ export const AWARDS: Award[] = [
     organizer: '정보통신기획평가원 · AI·SW중심대학협의회',
     projectId: null,
     githubUrl: null,
-    gallery: [],
+    gallery: [digitalcompetition20261, digitalcompetition20262, digitalcompetition20263, digitalcompetition20264],
   },
   {
     date: '2025. 05.',
