@@ -38,17 +38,21 @@ export default function AwardsPage() {
       <Navbar />
 
       <main className="relative z-10 mx-auto max-w-375 px-5 pb-28 pt-32 sm:px-8 md:pb-40 md:pt-44">
-        <header className="grid gap-12 border-b border-black pb-16 lg:grid-cols-[1.35fr_0.65fr] lg:items-end">
+        <header className="grid gap-12 border-b border-black pb-16 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#2f6dff]">Awards & Recognition</p>
             <h1 className="mt-8 text-[clamp(4rem,10vw,9rem)] font-black leading-[0.82] tracking-[-0.07em]">
               Selected<br />Awards<span className="text-[#2f6dff]">.</span>
             </h1>
           </div>
-          <div className="max-w-md lg:justify-self-end">
+          <div className="max-w-2xl lg:translate-x-6 lg:justify-self-end">
             <Trophy className="text-[#2f6dff]" size={30} strokeWidth={1.5} />
-            <p className="mt-7 text-xl font-bold leading-8">아이디어를 실제 서비스로 구현하고, 결과로 증명한 기록입니다.</p>
-            <p className="mt-5 text-sm leading-7 text-neutral-600">해커톤과 프로젝트에서 받은 주요 수상 경력을 관련 작업과 함께 정리했습니다.</p>
+            <p className="mt-7 text-xl font-bold leading-8">
+              아이디어를 실제 서비스로 구현하고, 결과로 증명한 기록입니다.
+            </p>
+            <p className="mt-5 text-sm leading-7 text-neutral-600">
+              해커톤과 프로젝트에서 받은 주요 수상 경력을 관련 작업과 함께 정리했습니다.
+            </p>
           </div>
         </header>
 
@@ -87,7 +91,7 @@ export default function AwardsPage() {
               >
                 <span className="font-mono text-xs text-neutral-400">{String(index + 1).padStart(2, '0')}</span>
                 <div>
-                  <p className="font-mono text-xs font-bold text-[#2f6dff]">{award.date}</p>
+                  <p className="text-xs font-bold text-[#2f6dff]">{award.date}</p>
                   <p className="mt-3 text-lg font-black">{award.result}</p>
                 </div>
                 <div>
@@ -193,7 +197,7 @@ export default function AwardsPage() {
 
               <aside className="flex min-h-0 flex-col border-t border-white/15 pt-5 lg:border-l lg:border-t-0 lg:pl-7 lg:pt-0">
                 <div>
-                  <p className="font-mono text-xs text-[#70a0ff]">{galleryAward.date}</p>
+                  <p className="text-xs font-medium text-[#70a0ff]">{galleryAward.date}</p>
                   <p className="mt-4 text-2xl font-black leading-tight">{galleryAward.result}</p>
                   <p className="mt-3 text-sm font-bold text-white/75">{galleryAward.project}</p>
                   <p className="mt-5 text-xs leading-6 text-white/45">{galleryAward.organizer}</p>

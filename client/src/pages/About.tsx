@@ -53,7 +53,7 @@ export default function AboutPage() {
           <div className="space-y-14">
             {ABOUT_CONTENT.experience.map((item) => (
               <article key={item.role} className="grid gap-4 md:grid-cols-[180px_1fr]">
-                <p className="font-mono text-xs text-[#2f6dff]">{item.period}</p>
+                <p className="text-xs font-medium text-[#2f6dff]">{item.period}</p>
                 <div><h3 className="text-2xl font-bold">{item.role}</h3><p className="mt-1 text-sm font-semibold text-neutral-500">{item.organization}</p><p className="mt-5 max-w-2xl text-sm leading-7 text-neutral-600">{item.description}</p></div>
               </article>
             ))}
@@ -69,7 +69,7 @@ export default function AboutPage() {
             <div className="divide-y divide-black/15 border-y border-black/20">
               {visibleActivities.map((activity) => (
                 <article key={`${activity.title}-${activity.period}`} className="grid gap-3 py-6 md:grid-cols-[170px_110px_1fr] md:gap-6">
-                  <p className="font-mono text-[11px] leading-5 text-[#2f6dff]">{activity.period}</p>
+                  <p className="text-[11px] font-medium leading-5 text-[#2f6dff]">{activity.period}</p>
                   <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-400">{activity.category}</p>
                   <div>
                     {'link' in activity ? (
@@ -104,7 +104,7 @@ export default function AboutPage() {
             <h2 className="text-xs font-bold uppercase tracking-[0.22em] text-neutral-500">Education</h2>
             {ABOUT_CONTENT.education.map((edu) => (
               <div key={edu.period}>
-                <p className="mt-10 font-mono text-xs text-[#2f6dff]">{edu.period}</p>
+                <p className="mt-10 text-xs font-medium text-[#2f6dff]">{edu.period}</p>
                 <h3 className="mt-4 text-2xl font-bold">{edu.degree}</h3>
                 <p className="mt-2 text-sm text-neutral-600">{edu.school}</p>
               </div>
@@ -115,7 +115,7 @@ export default function AboutPage() {
             <div className="mt-8 divide-y divide-black/15 border-t border-black/15">
               {ABOUT_CONTENT.awards.map((award) => (
                 <div key={`${award.title}-${award.year}`} className="grid grid-cols-[60px_1fr_auto] gap-4 py-4 text-sm">
-                  <span className="font-mono text-xs text-[#2f6dff]">{award.year}</span>
+                  <span className="text-xs font-medium text-[#2f6dff]">{award.year}</span>
                   <span className="font-semibold">{award.title}</span>
                   <span className="text-neutral-500">{award.result}</span>
                 </div>

@@ -125,7 +125,7 @@ export default function ProjectsPage() {
                   </div>
 
                   <div className="mt-auto flex items-center justify-between pt-5">
-                    <span className="font-mono text-xs text-neutral-500">
+                    <span className="text-xs font-medium text-neutral-500">
                       {project.year}
                     </span>
 

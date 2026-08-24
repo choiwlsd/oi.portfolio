@@ -54,7 +54,7 @@ export default function HomeProjects() {
                     ))}
                   </div>
                 </div>
-                <span className="shrink-0 font-mono text-xs text-neutral-500">{project.year}</span>
+                <span className="shrink-0 text-xs font-medium text-neutral-500">{project.year}</span>
               </div>
             </article>
           ))}
