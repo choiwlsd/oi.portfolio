@@ -1,6 +1,8 @@
 /**
  * 프로젝트 목록, 카드, 상세 페이지에서 사용하는 데이터입니다.
  * 프로젝트를 추가하거나 설명·기술·문서 링크를 수정할 때 이 파일만 변경하세요.
+ * Home의 Selected Works에 표시할 프로젝트에는 `featured: true`를 지정하세요(★ 표시 역할).
+ * 선택된 프로젝트는 이 파일에 작성된 순서대로 최대 3개가 노출됩니다.
  */
 import type { Project } from '../types';
 import { PROFILE } from './site';
