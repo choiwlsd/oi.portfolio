@@ -69,19 +69,12 @@ export default function ProjectDetail() {
 
   const previousProject = PROJECTS[(projectIndex - 1 + PROJECTS.length) % PROJECTS.length];
   const nextProject = PROJECTS[(projectIndex + 1) % PROJECTS.length];
-  const gallery = Array.from(new Set([project.image, ...(project.gallery ?? [])].filter(Boolean)));
-  const presentationSlides = (
-    project.presentationSlides?.length ? project.presentationSlides : gallery
-  ).filter(Boolean);
-  const demoMedia = project.demoMedia?.length
-    ? project.demoMedia
-    : gallery.slice(0, 3).map((image, index) => ({
-        type: "image" as const,
-        src: image,
-        title: ["Main Demo", "Detail Demo", "Result Demo"][index] ?? `Demo ${index + 1}`,
-      }));
-  const currentSlide = activeSlide % presentationSlides.length;
-  const currentDemo = activeDemo % demoMedia.length;
+  const presentationSlides = (project.presentationSlides ?? []).filter(Boolean);
+  const demoMedia = project.demoMedia ?? [];
+  const hasPresentation = hasPresentationPdf || presentationSlides.length > 0;
+  const hasDemo = demoMedia.length > 0;
+  const currentSlide = presentationSlides.length ? activeSlide % presentationSlides.length : 0;
+  const currentDemo = demoMedia.length ? activeDemo % demoMedia.length : 0;
   const results = project.results?.length
     ? project.results
     : ["Improved workflow accuracy", "Shipped a reliable interface", "Created a reusable technical foundation"];
@@ -151,10 +144,10 @@ export default function ProjectDetail() {
                 </a>
               )}
 
-              {hasPresentationPdf && (
+              {hasPresentation && (
                 <button
                   type="button"
-                  onClick={() => setViewerMode("presentationPdf")}
+                  onClick={() => hasPresentationPdf ? setViewerMode("presentationPdf") : openPresentation()}
                   className="inline-flex items-center gap-2 border border-black px-5 py-3 text-xs font-bold uppercase transition hover:border-[#2f6dff] hover:text-[#2f6dff]"
                 >
                   Presentation
@@ -178,13 +171,17 @@ export default function ProjectDetail() {
           <div className="relative">
             <div className="overflow-hidden border border-black/15 bg-white">
               <button
+                type="button"
+                disabled={!hasReportPdf && !hasDemo}
                 onClick={() => hasReportPdf ? setViewerMode("reportPdf") : openDemo()}
-                className="group relative block aspect-16/10 w-full overflow-hidden bg-neutral-100 text-left"
+                className={`relative block aspect-16/10 w-full overflow-hidden bg-neutral-100 text-left ${hasReportPdf || hasDemo ? "group" : "cursor-default"}`}
               >
-                <img src={project.image} alt={project.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" />
-                <span className="absolute bottom-5 right-5 grid h-14 w-14 place-items-center rounded-full bg-white text-black shadow-lg transition group-hover:bg-[#2f6dff] group-hover:text-white">
-                  {hasReportPdf ? <FileText size={20} /> : <Play size={20} fill="currentColor" />}
-                </span>
+                <img src={project.image} alt={project.title} className={`h-full w-full object-cover ${hasReportPdf || hasDemo ? "transition duration-500 group-hover:scale-[1.03]" : ""}`} />
+                {hasReportPdf || hasDemo ? (
+                  <span className="absolute bottom-5 right-5 grid h-14 w-14 place-items-center rounded-full bg-white text-black shadow-lg transition group-hover:bg-[#2f6dff] group-hover:text-white">
+                    {hasReportPdf ? <FileText size={20} /> : <Play size={20} fill="currentColor" />}
+                  </span>
+                ) : null}
               </button>
             </div>
           </div>
@@ -233,39 +230,75 @@ export default function ProjectDetail() {
             <p className="text-xs font-semibold text-neutral-500">Click a card to open the viewer</p>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2">
+          <div className="grid gap-8 md:grid-cols-3">
             <button
+              type="button"
+              disabled={!hasPresentation}
               onClick={() => hasPresentationPdf ? setViewerMode("presentationPdf") : openPresentation()}
-              className="group border-t border-black pt-4 text-left"
+              className={`border-t pt-4 text-left ${hasPresentation ? "group border-black" : "cursor-default border-black/20"}`}
             >
               <div className="relative aspect-video overflow-hidden bg-neutral-100">
-                <div className="flex h-full flex-col justify-between bg-white p-6 transition group-hover:bg-[#f4f7ff]">
-                  <div className="flex items-start justify-between"><Presentation size={28} strokeWidth={1.5} className="text-[#2f6dff]" /><span className="font-mono text-[10px] font-bold tracking-[0.16em] text-neutral-400">{hasPresentationPdf ? "PDF" : "SLIDES"}</span></div>
-                  <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#2f6dff]">Presentation</p><p className="mt-2 line-clamp-2 text-lg font-bold leading-tight">{project.title}</p></div>
-                </div>
+                {hasPresentation ? (
+                  <div className="flex h-full flex-col justify-between bg-white p-6 transition group-hover:bg-[#f4f7ff]">
+                    <div className="flex items-start justify-between"><Presentation size={28} strokeWidth={1.5} className="text-[#2f6dff]" /><span className="font-mono text-[10px] font-bold tracking-[0.16em] text-neutral-400">{hasPresentationPdf ? "PDF" : "SLIDES"}</span></div>
+                    <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#2f6dff]">Presentation</p><p className="mt-2 line-clamp-2 text-lg font-bold leading-tight">{project.title}</p></div>
+                  </div>
+                ) : (
+                  <><img src={project.image} alt="" className="h-full w-full object-cover opacity-20 grayscale" /><span className="absolute inset-0 grid place-items-center text-xs font-bold uppercase tracking-[0.16em] text-neutral-500">준비 중</span></>
+                )}
               </div>
               <div className="py-5">
                 <h3 className="text-xl font-black">Presentation</h3>
                 <p className="mt-2 text-sm leading-6 text-neutral-600">
-                  {hasPresentationPdf ? "Open the complete presentation PDF." : "View exported PPT pages as a slide deck."}
+                  {hasPresentationPdf ? "Open the complete presentation PDF." : presentationSlides.length ? "View exported PPT pages as a slide deck." : "등록된 발표 자료가 없습니다."}
                 </p>
               </div>
             </button>
 
             <button
-              onClick={() => hasReportPdf ? setViewerMode("reportPdf") : openDemo()}
-              className="group border-t border-black pt-4 text-left"
+              type="button"
+              disabled={!hasReportPdf}
+              onClick={() => setViewerMode("reportPdf")}
+              className={`border-t pt-4 text-left ${hasReportPdf ? "group border-black" : "cursor-default border-black/20"}`}
             >
               <div className="relative aspect-video overflow-hidden bg-neutral-100">
-                <div className="flex h-full flex-col justify-between bg-[#111] p-6 text-white transition group-hover:bg-[#2f6dff]">
-                  <div className="flex items-start justify-between"><FileText size={28} strokeWidth={1.5} /><span className="font-mono text-[10px] font-bold tracking-[0.16em] text-white/60">{hasReportPdf ? "PDF" : "MEDIA"}</span></div>
-                  <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/60">{hasReportPdf ? "Project Report" : "Demo Preview"}</p><p className="mt-2 line-clamp-2 text-lg font-bold leading-tight">{project.title}</p></div>
-                </div>
+                {hasReportPdf ? (
+                  <div className="flex h-full flex-col justify-between bg-[#111] p-6 text-white transition group-hover:bg-[#2f6dff]">
+                    <div className="flex items-start justify-between"><FileText size={28} strokeWidth={1.5} /><span className="font-mono text-[10px] font-bold tracking-[0.16em] text-white/60">PDF</span></div>
+                    <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/60">Project Report</p><p className="mt-2 line-clamp-2 text-lg font-bold leading-tight">{project.title}</p></div>
+                  </div>
+                ) : (
+                  <><img src={project.image} alt="" className="h-full w-full object-cover opacity-20 grayscale" /><span className="absolute inset-0 grid place-items-center text-xs font-bold uppercase tracking-[0.16em] text-neutral-500">준비 중</span></>
+                )}
               </div>
               <div className="py-5">
-                <h3 className="text-xl font-black">{hasReportPdf ? "Report" : "Demo"}</h3>
+                <h3 className="text-xl font-black">Report</h3>
                 <p className="mt-2 text-sm leading-6 text-neutral-600">
-                  {hasReportPdf ? "Read the full project report as a PDF." : "Watch demo video or browse demo screenshots."}
+                  {hasReportPdf ? "Read the full project report as a PDF." : "등록된 보고서가 없습니다."}
+                </p>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              disabled={!hasDemo}
+              onClick={openDemo}
+              className={`border-t pt-4 text-left ${hasDemo ? "group border-black" : "cursor-default border-black/20"}`}
+            >
+              <div className="relative aspect-video overflow-hidden bg-neutral-100">
+                {hasDemo ? (
+                  <div className="flex h-full flex-col justify-between bg-[#2f6dff] p-6 text-white transition group-hover:bg-[#1f55d9]">
+                    <div className="flex items-start justify-between"><Play size={28} strokeWidth={1.5} /><span className="font-mono text-[10px] font-bold tracking-[0.16em] text-white/60">MEDIA</span></div>
+                    <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/60">Demo Preview</p><p className="mt-2 line-clamp-2 text-lg font-bold leading-tight">{project.title}</p></div>
+                  </div>
+                ) : (
+                  <><img src={project.image} alt="" className="h-full w-full object-cover opacity-20 grayscale" /><span className="absolute inset-0 grid place-items-center text-xs font-bold uppercase tracking-[0.16em] text-neutral-500">준비 중</span></>
+                )}
+              </div>
+              <div className="py-5">
+                <h3 className="text-xl font-black">Demo</h3>
+                <p className="mt-2 text-sm leading-6 text-neutral-600">
+                  {hasDemo ? "Watch demo video or browse demo screenshots." : "등록된 데모 자료가 없습니다."}
                 </p>
               </div>
             </button>
