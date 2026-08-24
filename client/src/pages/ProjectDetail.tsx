@@ -3,30 +3,53 @@ import {
   ArrowRight,
   ChevronLeft,
   ChevronRight,
+  Download,
   ExternalLink,
   FileText,
   Github,
+  Layers3,
   Play,
   Presentation,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRoute } from "wouter";
 import { PROJECTS } from "@shared/portfolio";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-type ViewerMode = "presentation" | "demo" | "techStack" | null;
+type ViewerMode = "presentation" | "presentationPdf" | "reportPdf" | "demo" | "techStack" | null;
 
 export default function ProjectDetail() {
   const [match, params] = useRoute("/projects/:id");
   const [viewerMode, setViewerMode] = useState<ViewerMode>(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const [activeDemo, setActiveDemo] = useState(0);
-
-  if (!match) return null;
-
   const projectIndex = PROJECTS.findIndex((item) => item.id === params?.id);
   const project = PROJECTS[projectIndex];
+  const presentationPdf = project ? `/projects/${project.id}/presentation.pdf` : "";
+  const reportPdf = project ? `/projects/${project.id}/report.pdf` : "";
+  const [hasPresentationPdf, setHasPresentationPdf] = useState(false);
+  const [hasReportPdf, setHasReportPdf] = useState(false);
+
+  useEffect(() => {
+    if (!project) return;
+
+    const checkPdf = async (url: string) => {
+      try {
+        const response = await fetch(url, { method: "HEAD" });
+        return response.ok && response.headers.get("content-type")?.includes("application/pdf");
+      } catch {
+        return false;
+      }
+    };
+
+    void Promise.all([checkPdf(presentationPdf), checkPdf(reportPdf)]).then(([presentation, report]) => {
+      setHasPresentationPdf(Boolean(presentation));
+      setHasReportPdf(Boolean(report));
+    });
+  }, [project, presentationPdf, reportPdf]);
+
+  if (!match) return null;
 
   if (!project) {
     return (
@@ -64,6 +87,7 @@ export default function ProjectDetail() {
   const results = project.results?.length
     ? project.results
     : ["Improved workflow accuracy", "Shipped a reliable interface", "Created a reusable technical foundation"];
+  const activePdfUrl = viewerMode === "presentationPdf" ? presentationPdf : viewerMode === "reportPdf" ? reportPdf : "";
 
   const openPresentation = () => {
     setActiveSlide(0);
@@ -133,28 +157,26 @@ export default function ProjectDetail() {
                 </a>
               )}
 
-              {project.presentationLink && (
-                <a
-                  href={project.presentationLink}
-                  target="_blank"
-                  rel="noreferrer"
+              {hasPresentationPdf && (
+                <button
+                  type="button"
+                  onClick={() => setViewerMode("presentationPdf")}
                   className="inline-flex items-center gap-2 border border-black px-5 py-3 text-xs font-bold uppercase transition hover:border-[#2f6dff] hover:text-[#2f6dff]"
                 >
                   Presentation
                   <Presentation size={14} />
-                </a>
+                </button>
               )}
 
-              {project.reportLink && (
-                <a
-                  href={project.reportLink}
-                  target="_blank"
-                  rel="noreferrer"
+              {hasReportPdf && (
+                <button
+                  type="button"
+                  onClick={() => setViewerMode("reportPdf")}
                   className="inline-flex items-center gap-2 border border-black px-5 py-3 text-xs font-bold uppercase transition hover:border-[#2f6dff] hover:text-[#2f6dff]"
                 >
                   Report
                   <FileText size={14} />
-                </a>
+                </button>
               )}
             </div>
           </div>
@@ -162,12 +184,12 @@ export default function ProjectDetail() {
           <div className="relative">
             <div className="overflow-hidden border border-black/15 bg-white">
               <button
-                onClick={() => project.reportLink ? window.open(project.reportLink, "_blank", "noopener,noreferrer") : openDemo()}
+                onClick={() => hasReportPdf ? setViewerMode("reportPdf") : openDemo()}
                 className="group relative block aspect-16/10 w-full overflow-hidden bg-neutral-100 text-left"
               >
                 <img src={project.image} alt={project.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" />
                 <span className="absolute bottom-5 right-5 grid h-14 w-14 place-items-center rounded-full bg-white text-black shadow-lg transition group-hover:bg-[#2f6dff] group-hover:text-white">
-                  {project.reportLink ? <FileText size={20} /> : <Play size={20} fill="currentColor" />}
+                  {hasReportPdf ? <FileText size={20} /> : <Play size={20} fill="currentColor" />}
                 </span>
               </button>
             </div>
@@ -220,23 +242,28 @@ export default function ProjectDetail() {
 
           <div className="grid gap-8 md:grid-cols-3">
             <button
-              onClick={() => project.presentationLink ? window.open(project.presentationLink, "_blank", "noopener,noreferrer") : openPresentation()}
+              onClick={() => hasPresentationPdf ? setViewerMode("presentationPdf") : openPresentation()}
               className="group border-t border-black pt-4 text-left"
             >
               <div className="relative aspect-video overflow-hidden bg-neutral-100">
-                <img
-                  src={presentationSlides[currentSlide]}
-                  alt={`${project.title} presentation`}
-                  className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                />
-                <span className="absolute left-4 top-4 rounded bg-white/90 px-3 py-1 text-xs font-black text-[#0868ff]">
-                  {project.presentationLink ? "PDF" : `${presentationSlides.length} slides`}
-                </span>
+                {hasPresentationPdf ? (
+                  <div className="flex h-full flex-col justify-between bg-white p-6 transition group-hover:bg-[#f4f7ff]">
+                    <div className="flex items-start justify-between"><Presentation size={28} strokeWidth={1.5} className="text-[#2f6dff]" /><span className="font-mono text-[10px] font-bold tracking-[0.16em] text-neutral-400">PDF</span></div>
+                    <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#2f6dff]">Presentation</p><p className="mt-2 line-clamp-2 text-lg font-bold leading-tight">{project.title}</p></div>
+                  </div>
+                ) : (
+                  <img
+                    src={presentationSlides[currentSlide]}
+                    alt={`${project.title} presentation`}
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                  />
+                )}
+                {!hasPresentationPdf && <span className="absolute left-4 top-4 rounded bg-white/90 px-3 py-1 text-xs font-black text-[#0868ff]">{presentationSlides.length} slides</span>}
               </div>
               <div className="py-5">
                 <h3 className="text-xl font-black">Presentation</h3>
                 <p className="mt-2 text-sm leading-6 text-neutral-600">
-                  {project.presentationLink ? "Open the complete presentation as a PDF." : "View exported PPT pages as a slide deck."}
+                  {hasPresentationPdf ? "Open the complete presentation PDF." : "View exported PPT pages as a slide deck."}
                 </p>
               </div>
             </button>
@@ -246,14 +273,16 @@ export default function ProjectDetail() {
               className="group border-t border-black pt-4 text-left"
             >
               <div className="relative aspect-video overflow-hidden bg-neutral-100">
-                <img
-                  src={techStackImage}
-                  alt={`${project.title} tech stack`}
-                  className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                />
-                <span className="absolute left-4 top-4 rounded bg-white/90 px-3 py-1 text-xs font-black text-[#0868ff]">
-                  Stack
-                </span>
+                <div className="flex h-full flex-col justify-between bg-[#2f6dff] p-6 text-white transition group-hover:bg-[#1f55d9]">
+                  <div className="flex items-start justify-between">
+                    <Layers3 size={28} strokeWidth={1.5} />
+                    <span className="font-mono text-[10px] font-bold tracking-[0.16em] text-white/60">IMAGE</span>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/60">Technology Stack</p>
+                    <p className="mt-2 line-clamp-2 text-lg font-bold leading-tight">{project.title}</p>
+                  </div>
+                </div>
               </div>
               <div className="py-5">
                 <h3 className="text-xl font-black">기술 스택</h3>
@@ -264,16 +293,15 @@ export default function ProjectDetail() {
             </button>
 
             <button
-              onClick={() => project.reportLink ? window.open(project.reportLink, "_blank", "noopener,noreferrer") : openDemo()}
+              onClick={() => hasReportPdf ? setViewerMode("reportPdf") : openDemo()}
               className="group border-t border-black pt-4 text-left"
             >
               <div className="relative aspect-video overflow-hidden bg-neutral-100">
-                {project.reportLink ? (
-                  <img
-                    src={project.image}
-                    alt={`${project.title} report`}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                  />
+                {hasReportPdf ? (
+                  <div className="flex h-full flex-col justify-between bg-[#111] p-6 text-white transition group-hover:bg-[#2f6dff]">
+                    <div className="flex items-start justify-between"><FileText size={28} strokeWidth={1.5} /><span className="font-mono text-[10px] font-bold tracking-[0.16em] text-white/60">PDF</span></div>
+                    <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/60">Project Report</p><p className="mt-2 line-clamp-2 text-lg font-bold leading-tight">{project.title}</p></div>
+                  </div>
                 ) : demoMedia[0]?.type === "video" ? (
                   <div className="grid h-full w-full place-items-center bg-black text-white">
                     <Play size={42} fill="currentColor" />
@@ -285,14 +313,12 @@ export default function ProjectDetail() {
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
                   />
                 )}
-                <span className="absolute left-4 top-4 rounded bg-white/90 px-3 py-1 text-xs font-black text-[#0868ff]">
-                  {project.reportLink ? "PDF" : `${demoMedia.length} media`}
-                </span>
+                {!hasReportPdf && <span className="absolute left-4 top-4 rounded bg-white/90 px-3 py-1 text-xs font-black text-[#0868ff]">{demoMedia.length} media</span>}
               </div>
               <div className="py-5">
-                <h3 className="text-xl font-black">{project.reportLink ? "Report" : "Demo"}</h3>
+                <h3 className="text-xl font-black">{hasReportPdf ? "Report" : "Demo"}</h3>
                 <p className="mt-2 text-sm leading-6 text-neutral-600">
-                  {project.reportLink ? "Read the full project report as a PDF." : "Watch demo video or browse demo screenshots."}
+                  {hasReportPdf ? "Read the full project report as a PDF." : "Watch demo video or browse demo screenshots."}
                 </p>
               </div>
             </button>
@@ -330,23 +356,34 @@ export default function ProjectDetail() {
           onClick={() => setViewerMode(null)}
         >
           <div className="mx-auto flex h-full max-w-7xl flex-col justify-center">
-            <div className="overflow-hidden rounded-2xl bg-white shadow-2xl" onClick={(event) => event.stopPropagation()}>
+            <div className="overflow-hidden border border-white/20 bg-white shadow-2xl" onClick={(event) => event.stopPropagation()}>
               <div className="flex items-center justify-between border-b border-neutral-200 px-5 py-4">
                 <div>
-                  <p className="text-xs font-black uppercase text-[#0868ff]">
-                    {viewerMode}
+                  <p className="text-xs font-black uppercase tracking-[0.16em] text-[#2f6dff]">
+                    {viewerMode === "presentationPdf" ? "Presentation PDF" : viewerMode === "reportPdf" ? "Project Report" : viewerMode}
                   </p>
                   <h2 className="mt-1 text-lg font-black">{project.title}</h2>
                 </div>
-                <button
-                  onClick={() => setViewerMode(null)}
-                  className="rounded-full border border-neutral-300 px-4 py-2 text-xs font-black uppercase transition hover:bg-black hover:text-white"
-                >
-                  Close
-                </button>
+                <div className="flex items-center gap-2">
+                  {activePdfUrl && (
+                    <>
+                      <a href={activePdfUrl} target="_blank" rel="noreferrer" className="hidden items-center gap-2 border border-neutral-300 px-3 py-2 text-xs font-bold transition hover:border-[#2f6dff] hover:text-[#2f6dff] sm:inline-flex">Open <ExternalLink size={13} /></a>
+                      <a href={activePdfUrl} download className="hidden items-center gap-2 border border-neutral-300 px-3 py-2 text-xs font-bold transition hover:border-[#2f6dff] hover:text-[#2f6dff] sm:inline-flex">Download <Download size={13} /></a>
+                    </>
+                  )}
+                  <button onClick={() => setViewerMode(null)} className="border border-black bg-black px-4 py-2 text-xs font-bold uppercase text-white transition hover:bg-[#2f6dff]">Close</button>
+                </div>
               </div>
 
-              {viewerMode === "presentation" ? (
+              {viewerMode === "presentationPdf" || viewerMode === "reportPdf" ? (
+                <div className="bg-[#ececea] p-2 sm:p-4">
+                  <iframe
+                    src={`${activePdfUrl}#toolbar=0&navpanes=0&view=FitH`}
+                    title={`${project.title} ${viewerMode === "presentationPdf" ? "presentation" : "report"}`}
+                    className="h-[72vh] w-full bg-white shadow-sm"
+                  />
+                </div>
+              ) : viewerMode === "presentation" ? (
                 <>
                   <div className="relative bg-neutral-100">
                     <img
@@ -440,7 +477,11 @@ export default function ProjectDetail() {
 
               <div className="flex items-center justify-between border-t border-neutral-200 px-5 py-4 text-xs font-bold text-neutral-500">
                 <span>
-                  {viewerMode === "presentation"
+                  {viewerMode === "presentationPdf"
+                    ? "Presentation PDF"
+                    : viewerMode === "reportPdf"
+                      ? "Report PDF"
+                    : viewerMode === "presentation"
                     ? `${currentSlide + 1} / ${presentationSlides.length}`
                     : viewerMode === "demo"
                       ? `${currentDemo + 1} / ${demoMedia.length}`

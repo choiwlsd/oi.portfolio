@@ -8,6 +8,7 @@ import type { Project } from '../types';
 import { PROFILE } from './site';
 import defaultProjectCover from '../../client/src/assets/project-default.png';
 import imageColorizationCover from '../../client/src/assets/image-colorization-cover.png';
+import temporaryResidentialFacilities from '../../client/src/assets/temporary-residential-facilities.png';
 
 export const PROJECTS: Project[] = [
   {
@@ -139,26 +140,28 @@ export const PROJECTS: Project[] = [
 
   {
     id: '6',
-    title: 'Done-Check',
-    description: 'To-do Chrome extension service. Done? then check what you did!🌱🐾',
-    shortDescription: 'Chrome extension for task tracking',
-    image: defaultProjectCover,
-    gallery: [defaultProjectCover],
-    tags: ['JavaScript', 'Chrome Extension'],
+    title: '재난 상황 대비 추가 임시주거시설 추천',
+    description: '대구광역시의 인구 밀도와 재난·생활 인프라 데이터를 분석해 지진 겸용 임시주거시설로 활용할 숙박시설의 최적 위치를 추천한 데이터 분석 프로젝트입니다.',
+    shortDescription: '재난 상황에 대비한 데이터 기반 임시주거시설 입지 추천',
+    image: temporaryResidentialFacilities,
+    gallery: [temporaryResidentialFacilities],
+    tags: ['Python', 'HDBSCAN', 'p-median'],
     link: '/projects/6',
-    year: '2025',
+    year: '2024',
     featured: false,
-    category: 'Others',
-    duration: 'Aug 2025',
-    team: ['Solo'],
-    technologies: ['JavaScript', 'Chrome API'],
-    challenge: 'Create a simple task tracking browser extension.',
-    approach: 'Built lightweight Chrome extension with local storage.',
-    solution: 'Developed a user-friendly task management interface.',
+    category: 'Data',
+    duration: 'May 2024 - Jun 2024',
+    team: ['KHUDA Data Business Analysis Team'],
+    technologies: ['Python', 'PCA', 'UMAP', 'HDBSCAN', 'p-median', 'QGIS', 'OSMnx', 'GeoJSON'],
+    challenge: '기존 임시주거시설 중 숙박시설과 내진 설계 시설의 비율이 낮고, 지역 규모·인구·재난 위험·생활 인프라를 함께 고려한 시설 지정 기준이 부족했습니다.',
+    approach: '건축물대장, 병원·편의시설, 지진·산불 데이터를 전처리하고 PCA와 UMAP으로 차원을 축소한 뒤 HDBSCAN으로 불규칙한 밀도의 지역 데이터를 군집화했습니다.',
+    solution: '시설별 적합성 점수를 산출해 클러스터별 상위 후보를 추출하고, 인구 밀도 중심과 숙박시설 간 이동 비용을 최소화하는 p-median 모델로 추가 임시주거시설을 선정했습니다.',
     results: [
-      'Functional Chrome extension',
-      'Positive user feedback',
+      'UMAP과 HDBSCAN을 활용해 이상치가 많은 비구형 데이터 군집화',
+      '인구 밀도를 반영한 지진 겸용 임시주거시설 후보 선정',
+      '대구광역시 숙박시설 기반 추천 결과를 지도와 데이터로 시각화',
     ],
+    githubLink: 'https://github.com/choiwlsd/6th-DB-Temporary_Residential_Facilities_Recommendation',
   },
   {
     id: '7',
@@ -183,8 +186,6 @@ export const PROJECTS: Project[] = [
       'SSIM 최대 0.4604 · 평균 0.2181',
       '학습 데이터에 포함되지 않은 과거 흑백 사진 컬러화 검증',
     ],
-    presentationLink: '/documents/image-colorization-presentation.pdf',
-    reportLink: '/documents/image-colorization-report.pdf',
   },
 ];
 

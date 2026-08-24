@@ -16,7 +16,7 @@ export default function ProjectsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [, setLocation] = useLocation();
 
-  const itemsPerPage = 6;
+  const itemsPerPage = 9;
 
   const filteredProjects = useMemo(() => {
     return PROJECTS.filter((project) => {
@@ -97,7 +97,7 @@ export default function ProjectsPage() {
                     className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.035]"
                   />
 
-                  <span className="absolute left-5 top-5 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em]">
+                  <span className="absolute left-5 top-5 rounded-full bg-white/90 shadow-md px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em]">
                     {project.category}
                   </span>
                 </div>

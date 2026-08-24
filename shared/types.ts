@@ -35,8 +35,6 @@ export interface Project {
   results?: string[];
   liveLink?: string;
   githubLink?: string;
-  presentationLink?: string;
-  reportLink?: string;
 }
 
 /**
