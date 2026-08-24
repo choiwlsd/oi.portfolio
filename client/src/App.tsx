@@ -1,7 +1,8 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { useEffect } from "react";
+import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
@@ -9,9 +10,30 @@ import ProjectsPage from "./pages/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
 import AboutPage from "./pages/About";
 
+function ScrollToTop() {
+  const [location] = useLocation();
+  const pathname = location.split("?")[0];
+
+  useEffect(() => {
+    if (!("scrollRestoration" in window.history)) return;
+    window.history.scrollRestoration = "manual";
+
+    return () => {
+      window.history.scrollRestoration = "auto";
+    };
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [pathname]);
+
+  return null;
+}
 
 function Router() {
   return (
+      <>
+        <ScrollToTop />
         <Switch>
           <Route path={"/"} component={Home} />
           <Route path={"/about"} component={AboutPage} />
@@ -21,6 +43,7 @@ function Router() {
           {/* Final fallback route */}
           <Route component={NotFound} />
         </Switch>
+      </>
   );
 }
 
