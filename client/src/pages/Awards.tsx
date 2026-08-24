@@ -59,7 +59,7 @@ export default function AwardsPage() {
         <section className="py-20 md:py-28">
           <div className="mb-10 flex items-end justify-between border-b border-black/20 pb-5">
             <h2 className="text-xs font-bold uppercase tracking-[0.22em] text-neutral-500">Recognition</h2>
-            <p className="font-mono text-xs text-neutral-400">{String(AWARDS.length).padStart(2, '0')} awards</p>
+            <p className="text-xs text-neutral-400">{String(AWARDS.length).padStart(2, '0')} awards</p>
           </div>
 
           <div className="hidden grid-cols-[80px_120px_minmax(0,1fr)_180px_auto] gap-8 border-b border-black px-6 pb-4 text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-400 md:grid">
