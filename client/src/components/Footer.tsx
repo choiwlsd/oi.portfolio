@@ -13,7 +13,7 @@
 
 import { ArrowUp } from 'lucide-react';
 import { NAV_ITEMS } from '@shared/portfolio';
-import SocialLinks from './SocialLinks';
+import SocialLinks from '@/components/SocialLinks';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();

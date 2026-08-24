@@ -2,7 +2,7 @@
  * 사이트 전역에서 사용하는 기본 프로필, 연락처, 내비게이션, 소셜 링크 데이터입니다.
  * 이름·이메일·지역처럼 여러 화면에서 반복되는 값은 PROFILE에서만 수정하세요.
  */
-import type { NavItem, SocialLink } from '../types';
+import type { NavItem, SocialLink } from '@shared/types';
 
 export const PROFILE = {
   name: 'Jinyeong Choi',

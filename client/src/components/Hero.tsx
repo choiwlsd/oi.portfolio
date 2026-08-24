@@ -13,14 +13,14 @@
  * Right side: Decorative elements (in desktop view)
  */
 
-import Button from './Button';
+import Button from '@/components/Button';
 import { PORTFOLIO_META } from '@shared/portfolio';
-import FloatingBadge from './ui/floating-badge';
-import flowerimage from '../assets/flower.png';
-import laptopimage from '../assets/laptop.png';
-import headphoneimage from '../assets/headphone.png';
-import mouseimage from '../assets/mouse.png';
-import keyboardimage from '../assets/keyboard.png';
+import FloatingBadge from '@/components/ui/floating-badge';
+import flowerimage from '@/assets/flower.png';
+import laptopimage from '@/assets/laptop.png';
+import headphoneimage from '@/assets/headphone.png';
+import mouseimage from '@/assets/mouse.png';
+import keyboardimage from '@/assets/keyboard.png';
 
 export default function Hero() {
   return (

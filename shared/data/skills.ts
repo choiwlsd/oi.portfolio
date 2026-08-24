@@ -2,7 +2,7 @@
  * 기술 숙련도와 사용 도구 목록 데이터입니다.
  * 향후 기술 차트나 별도 Skills 섹션에서 사용하며, 기술 추가·삭제는 이 파일에서 관리하세요.
  */
-import type { Skill, Tool } from '../types';
+import type { Skill, Tool } from '@shared/types';
 
 export const SKILLS: Skill[] = [
   { name: 'JavaScript', level: 90, category: 'frontend' },

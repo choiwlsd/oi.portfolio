@@ -2,7 +2,8 @@
  * Home의 About 요약과 /about CV 페이지에서 사용하는 데이터입니다.
  * 경력, 활동, 학력, 수상, 관심사, 기술 그룹을 수정할 때 이 파일을 변경하세요.
  */
-import { PROFILE } from './site';
+import { PROFILE } from '@shared/data/site';
+import { AWARDS } from '@shared/data/awards';
 
 export const EXPERIENCE = [
   {
@@ -34,13 +35,6 @@ export const ACTIVITIES = [
 export const EDUCATION = [
   { period: '2021 — 2026', degree: 'B.S. in Computer Science', school: 'Kyung Hee University · Seoul' },
   { period: '2018 — 2022', degree: 'American School of Milan Middle School Diploma & High School', school: 'American School of Milan · Italy' },
-];
-
-export const AWARDS = [
-  { year: '2025', title: 'KHUTHON', result: '최우수상' },
-  { year: '2025', title: 'Semothon', result: '대상' },
-  { year: '2024', title: 'KHUTHON', result: '우수상 · 인기상' },
-  { year: '2024', title: 'Track Study Project', result: '2등' },
 ];
 
 export const ABOUT_CONTENT = {

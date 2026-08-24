@@ -3,12 +3,14 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { useEffect } from "react";
 import { Route, Switch, useLocation } from "wouter";
-import ErrorBoundary from "./components/ErrorBoundary";
-import { ThemeProvider } from "./contexts/ThemeContext";
-import Home from "./pages/Home";
-import ProjectsPage from "./pages/Projects";
-import ProjectDetail from "./pages/ProjectDetail";
-import AboutPage from "./pages/About";
+import ErrorBoundary from "@/components/ErrorBoundary";
+import { ThemeProvider } from "@/contexts/ThemeContext";
+import Home from "@/pages/Home";
+import ProjectsPage from "@/pages/Projects";
+import ProjectDetail from "@/pages/ProjectDetail";
+import AboutPage from "@/pages/About";
+import AwardsPage from "@/pages/Awards";
+
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -39,6 +41,7 @@ function Router() {
           <Route path={"/about"} component={AboutPage} />
           <Route path={"/projects"} component={ProjectsPage} />
           <Route path={"/projects/:id"} component={ProjectDetail} />
+          <Route path={"/awards"} component={AwardsPage} />
           <Route path={"/404"} component={NotFound} />
           {/* Final fallback route */}
           <Route component={NotFound} />

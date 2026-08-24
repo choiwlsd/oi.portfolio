@@ -4,19 +4,19 @@
  * Home의 Selected Works에 표시할 프로젝트에는 `featured: true`를 지정하세요(★ 표시 역할).
  * 선택된 프로젝트는 이 파일에 작성된 순서대로 최대 3개가 노출됩니다.
  */
-import type { Project } from '../types';
-import { PROFILE } from './site';
-import defaultProjectCover from '../../client/src/assets/projects/project-default.png';
-import imageColorizationCover from '../../client/src/assets/projects/image-colorization-cover.png';
-import temporaryResidentialFacilities from '../../client/src/assets/projects/temporary-residential-facilities.png';
-import khuthon2024Demo from '../../client/src/assets/projects/khuthon2024-demo.gif';
-import khuthon2024HW from '../../client/src/assets/projects/khuthon2024-hw.png';
-import khuthon2024Structure from '../../client/src/assets/projects/khuthon2024-structure.png';
-import poseAgentDuetPlay from '../../client/src/assets/projects/pose-agent/duet-play-page.png';
-import poseAgentFocusedLesson from '../../client/src/assets/projects/pose-agent/focused-lesson-repeat.mp4';
-import poseAgentHome from '../../client/src/assets/projects/pose-agent/home-page.png';
-import poseAgentPlay from '../../client/src/assets/projects/pose-agent/play-page.png';
-import poseWebcam from '../../client/src/assets/projects/pose-agent/web-cam.png';
+import type { Project } from '@shared/types';
+import { PROFILE } from '@shared/data/site';
+import defaultProjectCover from '@/assets/projects/project-default.png';
+import imageColorizationCover from '@/assets/projects/image-colorization-cover.png';
+import temporaryResidentialFacilities from '@/assets/projects/temporary-residential-facilities.png';
+import khuthon2024Demo from '@/assets/projects/khuthon2024-demo.gif';
+import khuthon2024HW from '@/assets/projects/khuthon2024-hw.png';
+import khuthon2024Structure from '@/assets/projects/khuthon2024-structure.png';
+import poseAgentDuetPlay from '@/assets/projects/pose-agent/duet-play-page.png';
+import poseAgentFocusedLesson from '@/assets/projects/pose-agent/focused-lesson-repeat.mp4';
+import poseAgentHome from '@/assets/projects/pose-agent/home-page.png';
+import poseAgentPlay from '@/assets/projects/pose-agent/play-page.png';
+import poseWebcam from '@/assets/projects/pose-agent/web-cam.png';
 
 export const PROJECTS: Project[] = [
   {
@@ -159,6 +159,7 @@ export const PROJECTS: Project[] = [
     results: [
       'Won 2nd Prize at Track Study Project',
     ],
+    githubLink: 'https://github.com/choiwlsd/2023_Track_Project',
   },
 
   {

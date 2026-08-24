@@ -15,7 +15,7 @@ import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useLocation } from 'wouter';
 import { NAV_ITEMS } from '@shared/portfolio';
-import SocialLinks from './SocialLinks';
+import SocialLinks from '@/components/SocialLinks';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);

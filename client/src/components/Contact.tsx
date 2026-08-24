@@ -12,7 +12,7 @@
 
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { CONTACT_INFO } from '@shared/portfolio';
-import Button from './Button';
+import Button from '@/components/Button';
 
 export default function Contact() {
   return (

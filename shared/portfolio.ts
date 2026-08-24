@@ -4,5 +4,6 @@
  */
 export * from './data/site';
 export * from './data/about';
+export * from './data/awards';
 export * from './data/projects';
 export * from './data/skills';
