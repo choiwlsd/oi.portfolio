@@ -6,6 +6,33 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const categories = ["All", "Web", "AI", "Data", "기획", "Others"];
+type SortOption = "latest" | "featured" | "alphabetical";
+
+const monthIndexes: Record<string, number> = {
+  Jan: 0,
+  Feb: 1,
+  Mar: 2,
+  Apr: 3,
+  May: 4,
+  Jun: 5,
+  Jul: 6,
+  Aug: 7,
+  Sep: 8,
+  Oct: 9,
+  Nov: 10,
+  Dec: 11,
+};
+
+const getProjectDateScore = (project: (typeof PROJECTS)[number]) => {
+  const dates = Array.from((project.duration ?? "").matchAll(/([A-Z][a-z]{2})?\s*(\d{4})/g));
+  const timestamps = dates.map((match) => {
+    const month = match[1] ? monthIndexes[match[1]] ?? 0 : 0;
+    return Date.UTC(Number(match[2]), month);
+  });
+
+  if (timestamps.length === 0) return [Date.UTC(Number(project.year), 0), 0];
+  return [timestamps.at(-1) ?? 0, timestamps[0] ?? 0];
+};
 
 export default function ProjectsPage() {
   const requestedCategory = new URLSearchParams(window.location.search).get("category");
@@ -13,17 +40,34 @@ export default function ProjectsPage() {
     ? requestedCategory
     : "All";
   const [activeCategory, setActiveCategory] = useState(initialCategory);
+  const [sortOption, setSortOption] = useState<SortOption>("latest");
   const [currentPage, setCurrentPage] = useState(1);
   const [, setLocation] = useLocation();
 
   const itemsPerPage = 9;
 
   const filteredProjects = useMemo(() => {
-    return PROJECTS.filter((project) => {
+    const filtered = PROJECTS.filter((project) => {
       if (activeCategory === "All") return true;
       return project.category === activeCategory;
     });
-  }, [activeCategory]);
+
+    return [...filtered].sort((a, b) => {
+      if (sortOption === "alphabetical") {
+        return a.title.localeCompare(b.title, ["ko", "en"]);
+      }
+
+      const [aEnd, aStart] = getProjectDateScore(a);
+      const [bEnd, bStart] = getProjectDateScore(b);
+      const latestComparison = bEnd - aEnd || bStart - aStart;
+
+      if (sortOption === "featured") {
+        return Number(Boolean(b.featured)) - Number(Boolean(a.featured)) || latestComparison;
+      }
+
+      return latestComparison;
+    });
+  }, [activeCategory, sortOption]);
 
   const totalPages = Math.ceil(filteredProjects.length / itemsPerPage);
 
@@ -71,10 +115,18 @@ export default function ProjectsPage() {
             ))}
           </div>
 
-          <select className="h-11 w-36 border border-black/20 bg-[#fafaf8] px-4 text-sm font-bold outline-none">
-            <option>Latest</option>
-            <option>Featured</option>
-            <option>A-Z</option>
+          <select
+            value={sortOption}
+            onChange={(event) => {
+              setSortOption(event.target.value as SortOption);
+              setCurrentPage(1);
+            }}
+            aria-label="프로젝트 정렬"
+            className="h-11 w-36 border border-black/20 bg-[#fafaf8] px-4 text-sm font-bold outline-none"
+          >
+            <option value="latest">Latest</option>
+            <option value="featured">Featured</option>
+            <option value="alphabetical">A–Z</option>
           </select>
         </section>
 
