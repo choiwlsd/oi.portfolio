@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { ArrowUpRight, ChevronLeft, ChevronRight, Github, Images, Trophy, X } from 'lucide-react';
+import { ArrowUpRight, ChevronLeft, ChevronRight, ExternalLink, Github, Images, Trophy, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'wouter';
 import { AWARDS } from '@shared/portfolio';
@@ -136,6 +136,23 @@ export default function AwardsPage() {
                   ) : (
                     <button type="button" disabled aria-label="연결된 GitHub 저장소 없음" className="relative z-10 grid h-11 w-11 cursor-not-allowed place-items-center border border-black/10 text-neutral-300">
                       <Github size={17} />
+                    </button>
+                  )}
+
+                  {award.eventUrl ? (
+                    <a
+                      href={award.eventUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={(event) => event.stopPropagation()}
+                      aria-label={`${award.title} 공식 안내 보기`}
+                      className="relative z-10 grid h-11 w-11 place-items-center border border-black/20 text-black transition hover:border-[#2f6dff] hover:text-[#2f6dff]"
+                    >
+                      <ExternalLink size={17} />
+                    </a>
+                  ) : (
+                    <button type="button" disabled aria-label="연결된 공식 안내 페이지 없음" className="relative z-10 grid h-11 w-11 cursor-not-allowed place-items-center border border-black/10 text-neutral-300">
+                      <ExternalLink size={17} />
                     </button>
                   )}
                 </div>

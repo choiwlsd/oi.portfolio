@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useRoute } from "wouter";
-import { PROJECTS } from "@shared/portfolio";
+import { AWARDS, PROJECTS } from "@shared/portfolio";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -69,6 +69,7 @@ export default function ProjectDetail() {
 
   const previousProject = PROJECTS[(projectIndex - 1 + PROJECTS.length) % PROJECTS.length];
   const nextProject = PROJECTS[(projectIndex + 1) % PROJECTS.length];
+  const projectAwards = AWARDS.filter((award) => award.projectId === project.id);
   const presentationSlides = (project.presentationSlides ?? []).filter(Boolean);
   const demoMedia = project.demoMedia ?? [];
   const hasPresentation = hasPresentationPdf || presentationSlides.length > 0;
@@ -193,10 +194,46 @@ export default function ProjectDetail() {
           <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-neutral-400">Team</p><p className="mt-3 text-sm font-semibold">{project.team?.join(" · ") ?? "—"}</p></div>
         </section>
 
-        <section className="py-24">
+        <section className={projectAwards.length > 0 ? "pb-24" : "py-24"}>
+          {projectAwards.length > 0 && (
+            <div className="mb-20 grid items-center gap-5 border-b border-black/20 py-10 lg:grid-cols-[0.42fr_1.58fr] lg:gap-20">
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-neutral-500">
+                AWARDS
+              </p>
+
+              <div className="space-y-3">
+                {projectAwards.map((award) => (
+                  <div key={award.title} className="flex items-center">
+                    <div className="flex w-full items-center gap-3">
+                      <span
+                        className="shrink-0 text-xl sm:text-2xl"
+                        aria-hidden="true"
+                      >
+                        🏆
+                      </span>
+
+                      <div className="flex min-w-0 flex-1 items-baseline gap-2">
+                        <p className="truncate text-base font-semibold leading-6 sm:text-lg">
+                          {award.title}
+                        </p>
+
+                        <p className="shrink-0 text-lg font-bold text-[#2f6dff] sm:text-xl">
+                          {award.result}
+                        </p>
+                      </div>
+
+                      <span className="shrink-0 text-xs font-medium text-neutral-400 sm:text-sm">
+                        {award.date}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
           <div className="grid gap-8 lg:grid-cols-[0.42fr_1.58fr] lg:gap-20">
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-neutral-500">Overview</p>
-            <p className="max-w-4xl text-2xl font-semibold leading-normal tracking-tight md:text-3xl">{project.description}</p>
+            <p className="max-w-4xl text-2xl font-semibold leading-normal tracking-tight">{project.description}</p>
           </div>
           <div className="mt-24 divide-y divide-black/15 border-y border-black/20">
             {[

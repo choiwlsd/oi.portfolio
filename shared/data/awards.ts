@@ -1,19 +1,23 @@
 /**
  * /awards 페이지와 /about 페이지의 수상 경력에서 사용하는 데이터입니다.
- * 관련 포트폴리오가 있으면 projectId를, 공개 저장소가 있으면 githubUrl을 입력하세요.
+ * 관련 포트폴리오가 있으면 projectId를, 공개 저장소는 githubUrl, 공식 대회 안내는 eventUrl에 입력하세요.
  * 수상 사진은 client/src/assets/awards에 저장하고 import한 뒤 gallery 배열에 추가하세요.
  * 값이 없으면 Awards 페이지의 해당 기능이 자동으로 비활성화됩니다.
  */
 
-import khuthon2025 from '@/assets/awards/khuthon-2025.png';
-import digitalcompetition20261 from '@/assets/awards/digital-competition-2026-1.png';
-import digitalcompetition20262 from '@/assets/awards/digital-competition-2026-2.png';
-import digitalcompetition20263 from '@/assets/awards/digital-competition-2026-3.png';
-import digitalcompetition20264 from '@/assets/awards/digital-competition-2026-4.png';
-
-
-
-
+import digitalCompetition20261 from '@/assets/awards/digital-competition-2026-1.png';
+import digitalCompetition20262 from '@/assets/awards/digital-competition-2026-2.png';
+import digitalCompetition20263 from '@/assets/awards/digital-competition-2026-3.png';
+import digitalCompetition20264 from '@/assets/awards/digital-competition-2026-4.png';
+import khuthon20241 from '@/assets/awards/khuthon-2024-1.png';
+import khuthon20242 from '@/assets/awards/khuthon-2024-2.png';
+import khuthon20251 from '@/assets/awards/khuthon-2025-1.png';
+import khuthon20252 from '@/assets/awards/khuthon-2025-2.png';
+import khuthon20253 from '@/assets/awards/khuthon-2025-3.png';
+import sanJoseUniversity1 from '@/assets/awards/san-jose-university-1.png';
+import sanJoseUniversity2 from '@/assets/awards/san-jose-university-2.jpg';
+import semothon1 from '@/assets/awards/semothon-1.jpg';
+import semothon3 from '@/assets/awards/semothon-3.png';
 
 export interface Award {
   date: string;
@@ -25,6 +29,7 @@ export interface Award {
   organizer: string;
   projectId: string | null;
   githubUrl: string | null;
+  eventUrl: string | null;
   gallery: string[];
 }
 
@@ -39,7 +44,8 @@ export const AWARDS: Award[] = [
     organizer: '정보통신기획평가원 · AI·SW중심대학협의회',
     projectId: '9',
     githubUrl: 'https://github.com/Roomfit-AI/RoomFit-Web',
-    gallery: [digitalcompetition20261, digitalcompetition20262, digitalcompetition20263, digitalcompetition20264],
+    eventUrl: 'https://dacon.io/competitions/open/236693/overview/description',
+    gallery: [digitalCompetition20261, digitalCompetition20262, digitalCompetition20263, digitalCompetition20264],
   },
   {
     date: '2025. 05.',
@@ -51,7 +57,8 @@ export const AWARDS: Award[] = [
     organizer: '경희대학교 · KHLUG',
     projectId: '2',
     githubUrl: 'https://github.com/choiwlsd/khuthon2025',
-    gallery: [khuthon2025],
+    eventUrl: 'https://thon.khlug.org/',
+    gallery: [khuthon20251, khuthon20252, khuthon20253],
   },
   {
     date: '2025. 04.',
@@ -63,7 +70,8 @@ export const AWARDS: Award[] = [
     organizer: '경희대학교 소프트웨어융합대학 · 예술디자인대학 · 공과대학',
     projectId: '3',
     githubUrl: 'https://github.com/choiwlsd/2025_TEAM_6_FE',
-    gallery: [],
+    eventUrl: 'https://github.com/semothon',
+    gallery: [semothon1, semothon3],
   },
   {
     date: '2025. 01.',
@@ -75,7 +83,8 @@ export const AWARDS: Award[] = [
     organizer: 'San José State University',
     projectId: null,
     githubUrl: null,
-    gallery: [],
+    eventUrl: null,
+    gallery: [sanJoseUniversity1, sanJoseUniversity2],
   },
   {
     date: '2024. 05.',
@@ -87,7 +96,8 @@ export const AWARDS: Award[] = [
     organizer: '경희대학교 · KHLUG',
     projectId: '4',
     githubUrl: 'https://github.com/choiwlsd/khuthon2024',
-    gallery: [],
+    eventUrl: 'https://thon.khlug.org/',
+    gallery: [khuthon20241, khuthon20242],
   },
   {
     date: '2023. 11.',
@@ -99,6 +109,7 @@ export const AWARDS: Award[] = [
     organizer: '경희대학교 컴퓨터공학부',
     projectId: '5',
     githubUrl: null,
+    eventUrl: null,
     gallery: [],
   },
 ];
