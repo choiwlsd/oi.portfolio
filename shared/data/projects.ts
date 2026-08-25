@@ -17,6 +17,7 @@ import poseAgentFocusedLesson from '@/assets/projects/pose-agent/focused-lesson-
 import poseAgentHome from '@/assets/projects/pose-agent/home-page.png';
 import poseAgentPlay from '@/assets/projects/pose-agent/play-page.png';
 import poseWebcam from '@/assets/projects/pose-agent/web-cam.png';
+import roomfitCover from '@/assets/projects/roomfit/roomfit-cover.png';
 
 export const PROJECTS: Project[] = [
   {
@@ -232,6 +233,30 @@ export const PROJECTS: Project[] = [
       '승률 및 특성 간 상관관계를 분석해 주요 경기 영향 요인 도출',
     ],
     githubLink: 'https://github.com/choiwlsd/KHUDA-6th-ML-team3-Prediction-of-KBO',
+  },
+  {
+    id: '9',
+    title: 'RoomFit - 3D 인테리어 AI Agent',
+    description: '2026 AI·SW중심대학 디지털경진대회 SW부문 우수상·인기상 수상작으로, 실제 방 구조와 사용자의 생활 맥락을 이해해 배치 가능한 가구와 공간 구성을 제안하는 3D 인테리어 AI Agent입니다.',
+    shortDescription: '실제 공간과 생활 맥락을 이해하는 3D 인테리어 AI Agent',
+    image: roomfitCover,
+    gallery: [roomfitCover],
+    tags: ['React', 'TypeScript', 'Three.js'],
+    link: '/projects/9',
+    year: '2026',
+    featured: false,
+    category: 'AI',
+    duration: 'May 2026 - Aug 2026',
+    team: ['파라파라 · 4-person team'],
+    challenge: '1인 가구와 원룸에서는 작은 가구 하나도 동선과 공간 활용에 큰 영향을 주지만, 사용자가 방을 직접 측정하고 수많은 가구를 비교해 실제 배치 가능 여부까지 판단하기는 어렵습니다.',
+    approach: 'RoomPlan으로 수집한 벽·문·창문·기존 가구 정보를 3D 공간 데이터로 변환하고, 라이프스타일·인테리어 취향·필요 가구와 선택 상품을 Agent Context로 구성했습니다.',
+    solution: 'LLM은 자연어 의도와 사용자 피드백을 구조화하고, 좌표 계산과 충돌·경계·문·창문·동선 검증은 결정론적인 Rule Engine이 담당하도록 역할을 분리했습니다. React Three Fiber 기반 3D 편집기에서는 추천 레이아웃을 확인하고 가구를 이동·회전·수정한 뒤 최종 배치를 확정할 수 있습니다.',
+    results: [
+      '2026 AI·SW중심대학 디지털경진대회 SW부문 우수상·인기상 수상',
+      '방 선택부터 가구 설정, AI 추천, 3D 편집, 자연어 피드백, 배치 확정까지 사용자 흐름 구현',
+      'LLM의 유연성과 Rule Engine의 정확성을 결합한 검증 가능한 가구 배치 구조 설계',
+    ],
+    githubLink: 'https://github.com/Roomfit-AI/RoomFit-Web',
   },
 ];
 
