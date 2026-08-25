@@ -49,7 +49,10 @@ export default function ProjectsPage() {
   const filteredProjects = useMemo(() => {
     const filtered = PROJECTS.filter((project) => {
       if (activeCategory === "All") return true;
-      return project.category === activeCategory;
+      const projectCategories = Array.isArray(project.category)
+        ? project.category
+        : [project.category ?? "Others"];
+      return projectCategories.some((category) => category === activeCategory);
     });
 
     return [...filtered].sort((a, b) => {
@@ -132,7 +135,12 @@ export default function ProjectsPage() {
 
         {/* Projects Grid */}
         <section className="mt-14 grid gap-x-7 gap-y-16 md:grid-cols-2 xl:grid-cols-3">
-          {paginatedProjects.map((project) => (
+          {paginatedProjects.map((project) => {
+            const projectCategories = Array.isArray(project.category)
+              ? project.category
+              : [project.category ?? "Others"];
+
+            return (
             <article
               key={project.id}
               className="group"
@@ -149,9 +157,13 @@ export default function ProjectsPage() {
                     className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.035]"
                   />
 
-                  <span className="absolute left-5 top-5 rounded-full bg-white/90 shadow-md px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em]">
-                    {project.category}
-                  </span>
+                  <div className="absolute left-5 top-5 flex flex-wrap gap-1.5">
+                    {projectCategories.map((category) => (
+                      <span key={category} className="rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] shadow-md">
+                        {category}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Content */}
@@ -189,7 +201,8 @@ export default function ProjectsPage() {
                 </div>
               </button>
             </article>
-          ))}
+            );
+          })}
         </section>
 
         {/* Dot Pagination */}

@@ -6,6 +6,8 @@
 /**
  * Represents a single project in the portfolio
  */
+export type ProjectCategory = 'Web' | 'AI' | 'Data' | '기획' | 'Others';
+
 export interface Project {
   id: string;
   title: string;
@@ -24,7 +26,7 @@ export interface Project {
   link: string;
   year: string;
   featured?: boolean;
-  category?: 'Web' | 'AI' | 'Data' | '기획' | 'Others';
+  category?: ProjectCategory | ProjectCategory[];
   duration?: string;
   team?: string[];
   challenge?: string;

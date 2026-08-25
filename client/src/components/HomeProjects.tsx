@@ -27,14 +27,23 @@ export default function HomeProjects() {
         </div>
 
         <div className="mt-14 grid gap-x-7 gap-y-16 md:grid-cols-2 xl:grid-cols-3">
-          {featured.map((project, index) => (
+          {featured.map((project, index) => {
+            const projectCategories = Array.isArray(project.category)
+              ? project.category
+              : [project.category ?? "Others"];
+
+            return (
             <article key={project.id} onClick={() => navigate(project.link)} className="group cursor-pointer">
               <div className="relative aspect-16/10 overflow-hidden bg-[#efefeb]">
                 <img src={project.image} alt={project.title} className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.035]" />
                 <div className="absolute inset-0 bg-black/0 transition group-hover:bg-black/8" />
-                <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] backdrop-blur-sm sm:left-6 sm:top-6">
-                  {project.category}
-                </span>
+                <div className="absolute left-4 top-4 flex flex-wrap gap-1.5 sm:left-6 sm:top-6">
+                  {projectCategories.map((category) => (
+                    <span key={category} className="rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] backdrop-blur-sm">
+                      {category}
+                    </span>
+                  ))}
+                </div>
                 <span className="absolute bottom-5 right-5 grid h-12 w-12 translate-y-3 place-items-center rounded-full bg-white opacity-0 shadow-lg transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                   <ArrowUpRight size={19} />
                 </span>
@@ -57,7 +66,8 @@ export default function HomeProjects() {
                 <span className="shrink-0 text-xs font-medium text-neutral-500">{project.year}</span>
               </div>
             </article>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

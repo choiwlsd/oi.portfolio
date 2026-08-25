@@ -103,7 +103,7 @@ export default function ProjectDetail() {
 
         <section className="mt-12 grid gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-start xl:gap-16">
           <div className="max-w-xl">
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-[#2f6dff]">{project.category} · {project.year}</p>
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-[#2f6dff]">{(Array.isArray(project.category) ? project.category : [project.category ?? "Others"]).join(" · ")} · {project.year}</p>
 
             <h1 className="mt-7 text-[clamp(2.6rem,4.2vw,4.5rem)] font-black leading-[1.02] tracking-[-0.045em]">{project.title}<span className="text-[#2f6dff]">.</span></h1>
 
