@@ -2,7 +2,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { ArrowUpRight, ChevronLeft, ChevronRight, ExternalLink, Github, Images, Trophy, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { AWARDS } from '@shared/portfolio';
 
 export default function AwardsPage() {
@@ -166,10 +166,10 @@ export default function AwardsPage() {
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#2f6dff]">More work</p>
             <h2 className="mt-3 text-2xl font-black">수상작 외의 프로젝트도 확인해 보세요.</h2>
           </div>
-          <a href="/projects" className="group inline-flex items-center gap-3 self-start bg-black px-6 py-3 text-sm font-bold text-white transition hover:bg-[#2f6dff] sm:self-auto">
+          <Link href="/projects" className="group inline-flex items-center gap-3 self-start bg-black px-6 py-3 text-sm font-bold text-white transition hover:bg-[#2f6dff] sm:self-auto">
             All Projects
             <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </a>
+          </Link>
         </section>
       </main>
 

@@ -13,7 +13,7 @@
 
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import { useLocation } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { NAV_ITEMS } from '@shared/portfolio';
 import SocialLinks from '@/components/SocialLinks';
 
@@ -31,9 +31,9 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo/Brand */}
           <div className="flex-none">
-            <a href="/" className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'Poppins' }}>
+            <Link href="/" className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'Poppins' }}>
               dev.
-            </a>
+            </Link>
           </div>
 
           <div className="hidden md:flex flex-1 justify-end items-center gap-20">
@@ -43,7 +43,7 @@ export default function Navbar() {
                 const active = isActive(item.href);
 
                 return (
-                  <a
+                  <Link
                     key={item.label}
                     href={item.href}
                     aria-current={active ? 'page' : undefined}
@@ -54,7 +54,7 @@ export default function Navbar() {
                     }`}
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 );
               })}
             </div>
@@ -83,7 +83,7 @@ export default function Navbar() {
                 const active = isActive(item.href);
 
                 return (
-                  <a
+                  <Link
                     key={item.label}
                     href={item.href}
                     aria-current={active ? 'page' : undefined}
@@ -95,7 +95,7 @@ export default function Navbar() {
                     onClick={() => setIsOpen(false)}
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 );
               })}
               <div className="flex gap-4 border-t border-black/10 pt-4">

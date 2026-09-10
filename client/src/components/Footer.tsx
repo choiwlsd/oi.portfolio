@@ -12,6 +12,7 @@
  */
 
 import { ArrowUp } from 'lucide-react';
+import { Link } from 'wouter';
 import { NAV_ITEMS } from '@shared/portfolio';
 import SocialLinks from '@/components/SocialLinks';
 
@@ -42,13 +43,13 @@ export default function Footer() {
             <h4 className="font-semibold text-gray-900 mb-4">Navigation</h4>
             <nav className="space-y-2">
               {NAV_ITEMS.map((item) => (
-                <a
+                <Link
                   key={item.label}
                   href={item.href}
                   className="block text-gray-600 hover:text-blue-600 transition-colors text-sm"
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
             </nav>
           </div>

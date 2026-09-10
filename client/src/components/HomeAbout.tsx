@@ -1,9 +1,11 @@
 import { ArrowUpRight } from "lucide-react";
-import { navigate } from "wouter/use-browser-location";
+import { useLocation } from "wouter";
 import me from "@/assets/me.png";
 import { ABOUT_CONTENT } from "@shared/portfolio";
 
 export default function HomeAbout() {
+  const [, navigate] = useLocation();
+
   return (
     <section id="about" className="relative border-t border-black/10">
       <div className="mx-auto max-w-[1500px] px-5 py-28 sm:px-8 md:py-40">

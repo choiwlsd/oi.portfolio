@@ -35,15 +35,14 @@ const getProjectDateScore = (project: (typeof PROJECTS)[number]) => {
 };
 
 export default function ProjectsPage() {
-  const requestedCategory = new URLSearchParams(window.location.search).get("category");
+  const [location, setLocation] = useLocation();
+  const requestedCategory = new URLSearchParams(location.split("?")[1] ?? "").get("category");
   const initialCategory = requestedCategory && categories.includes(requestedCategory)
     ? requestedCategory
     : "All";
   const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [sortOption, setSortOption] = useState<SortOption>("latest");
   const [currentPage, setCurrentPage] = useState(1);
-  const [, setLocation] = useLocation();
-
   const itemsPerPage = 9;
 
   const filteredProjects = useMemo(() => {

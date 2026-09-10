@@ -1,8 +1,9 @@
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { PROJECTS } from "@shared/portfolio";
-import { navigate } from "wouter/use-browser-location";
+import { useLocation } from "wouter";
 
 export default function HomeProjects() {
+  const [, navigate] = useLocation();
   const featured = PROJECTS.filter((project) => project.featured).slice(0, 3);
 
   return (

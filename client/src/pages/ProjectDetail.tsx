@@ -11,10 +11,11 @@ import {
   Presentation,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useRoute } from "wouter";
+import { Link, useRoute } from "wouter";
 import { AWARDS, PROJECTS } from "@shared/portfolio";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { publicAssetPath } from "@/lib/paths";
 
 type ViewerMode = "presentation" | "presentationPdf" | "reportPdf" | "demo" | null;
 
@@ -25,8 +26,8 @@ export default function ProjectDetail() {
   const [activeDemo, setActiveDemo] = useState(0);
   const projectIndex = PROJECTS.findIndex((item) => item.id === params?.id);
   const project = PROJECTS[projectIndex];
-  const presentationPdf = project ? `/projects/${project.id}/presentation.pdf` : "";
-  const reportPdf = project ? `/projects/${project.id}/report.pdf` : "";
+  const presentationPdf = project ? publicAssetPath(`projects/${project.id}/presentation.pdf`) : "";
+  const reportPdf = project ? publicAssetPath(`projects/${project.id}/report.pdf`) : "";
   const [hasPresentationPdf, setHasPresentationPdf] = useState(false);
   const [hasReportPdf, setHasReportPdf] = useState(false);
 
@@ -57,10 +58,10 @@ export default function ProjectDetail() {
         <main className="grid min-h-[70vh] place-items-center pt-24 text-center">
           <div>
             <h1 className="text-5xl font-black">Project not found.</h1>
-            <a href="/projects" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#0868ff]">
+            <Link href="/projects" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#0868ff]">
               <ArrowLeft size={16} />
               Back to Projects
-            </a>
+            </Link>
           </div>
         </main>
       </div>
@@ -76,6 +77,8 @@ export default function ProjectDetail() {
   const hasDemo = demoMedia.length > 0;
   const currentSlide = presentationSlides.length ? activeSlide % presentationSlides.length : 0;
   const currentDemo = demoMedia.length ? activeDemo % demoMedia.length : 0;
+  const demoAssetPath = (path?: string) =>
+    path?.startsWith("/projects/") ? publicAssetPath(path) : path;
   const results = project.results?.length
     ? project.results
     : ["Improved workflow accuracy", "Shipped a reliable interface", "Created a reusable technical foundation"];
@@ -97,10 +100,10 @@ export default function ProjectDetail() {
       <Navbar />
 
       <main className="relative z-10 mx-auto max-w-330 px-5 pb-28 pt-32 sm:px-8 md:pb-40 md:pt-40">
-        <a href="/projects" className="inline-flex items-center gap-2 text-xs font-bold text-neutral-500 transition hover:text-[#2f6dff]">
+        <Link href="/projects" className="inline-flex items-center gap-2 text-xs font-bold text-neutral-500 transition hover:text-[#2f6dff]">
           <ArrowLeft size={14} />
           Back to Projects
-        </a>
+        </Link>
 
         <section className="mt-12 grid gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-start xl:gap-16">
           <div className="max-w-xl">
@@ -343,7 +346,7 @@ export default function ProjectDetail() {
         </section>
 
         <section className="mt-28 grid gap-px border-y border-black bg-black md:grid-cols-2">
-          <a href={`/projects/${previousProject.id}`} className="group bg-[#fafaf8] p-7 transition hover:bg-white">
+          <Link href={`/projects/${previousProject.id}`} className="group bg-[#fafaf8] p-7 transition hover:bg-white">
             <p className="text-[11px] font-bold text-neutral-500">Previous Project</p>
             <div className="mt-3 flex items-center justify-between">
               <ArrowLeft className="h-4 w-4 transition group-hover:-translate-x-1" />
@@ -352,9 +355,9 @@ export default function ProjectDetail() {
                 <p className="text-[11px] text-neutral-600">{previousProject.shortDescription}</p>
               </div>
             </div>
-          </a>
+          </Link>
 
-          <a href={`/projects/${nextProject.id}`} className="group bg-[#fafaf8] p-7 transition hover:bg-white">
+          <Link href={`/projects/${nextProject.id}`} className="group bg-[#fafaf8] p-7 transition hover:bg-white">
             <p className="text-[11px] font-bold text-neutral-500">Next Project</p>
             <div className="mt-3 flex items-center justify-between">
               <div>
@@ -363,7 +366,7 @@ export default function ProjectDetail() {
               </div>
               <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
             </div>
-          </a>
+          </Link>
         </section>
       </main>
 
@@ -443,14 +446,14 @@ export default function ProjectDetail() {
                     <div className="aspect-video">
                       {demoMedia[currentDemo]?.type === "video" ? (
                         <video
-                          src={demoMedia[currentDemo].src}
-                          poster={demoMedia[currentDemo].poster}
+                          src={demoAssetPath(demoMedia[currentDemo].src)}
+                          poster={demoAssetPath(demoMedia[currentDemo].poster)}
                           controls
                           className="h-full w-full bg-black object-contain"
                         />
                       ) : (
                         <img
-                          src={demoMedia[currentDemo]?.src}
+                          src={demoAssetPath(demoMedia[currentDemo]?.src)}
                           alt={demoMedia[currentDemo]?.title || `${project.title} demo media`}
                           className="h-full w-full bg-white object-contain"
                         />
@@ -471,7 +474,7 @@ export default function ProjectDetail() {
                           {media.type === "video" ? (
                             <Play size={20} fill="currentColor" />
                           ) : (
-                            <img src={media.src} alt="" className="h-full w-full object-cover" />
+                            <img src={demoAssetPath(media.src)} alt="" className="h-full w-full object-cover" />
                           )}
                         </div>
                         <div>

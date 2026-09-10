@@ -4,6 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SocialLinks from "@/components/SocialLinks";
 import { ABOUT_CONTENT } from "@shared/portfolio";
+import { Link } from "wouter";
+import { publicAssetPath } from "@/lib/paths";
 
 export default function AboutPage() {
   const [showAllActivities, setShowAllActivities] = useState(false);
@@ -39,10 +41,10 @@ export default function AboutPage() {
             {ABOUT_CONTENT.interests.map((interest, index) => {
               const category = interest === "AI Agent" ? "AI" : interest === "Data Analysis" ? "Data" : "Web";
               return (
-              <a href={`/projects?category=${category}`} key={interest} className="group flex min-h-40 flex-col justify-between border border-black/20 bg-[#fafaf8]/80 p-6 backdrop-blur-[2px] transition hover:border-[#2f6dff] hover:bg-white md:min-h-48 md:p-8">
+              <Link href={`/projects?category=${category}`} key={interest} className="group flex min-h-40 flex-col justify-between border border-black/20 bg-[#fafaf8]/80 p-6 backdrop-blur-[2px] transition hover:border-[#2f6dff] hover:bg-white md:min-h-48 md:p-8">
                 <span className="font-mono text-xs text-[#2f6dff]">0{index + 1}</span>
                 <div className="mt-10 flex items-end justify-between gap-4"><p className="text-xl font-bold leading-tight tracking-tight md:text-2xl">{interest}</p><ArrowUpRight size={17} className="shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></div>
-              </a>
+              </Link>
               );
             })}
           </div>
@@ -132,7 +134,7 @@ export default function AboutPage() {
         </section>
 
         <div className="flex flex-wrap gap-3 border-t border-black pt-10">
-          <a href="/resume.pdf" className="inline-flex items-center gap-3 bg-black px-6 py-3 text-sm font-bold text-white transition hover:bg-[#2f6dff]">Download CV <Download size={16} /></a>
+          <a href={publicAssetPath("resume.pdf")} className="inline-flex items-center gap-3 bg-black px-6 py-3 text-sm font-bold text-white transition hover:bg-[#2f6dff]">Download CV <Download size={16} /></a>
           <a href={`mailto:${ABOUT_CONTENT.email}`} className="inline-flex items-center gap-3 border border-black px-6 py-3 text-sm font-bold transition hover:border-[#2f6dff] hover:text-[#2f6dff]">Contact <Mail size={16} /></a>
         </div>
       </main>
