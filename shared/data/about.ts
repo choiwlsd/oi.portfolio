@@ -33,7 +33,7 @@ export const ACTIVITIES = [
 ] as const;
 
 export const EDUCATION = [
-  { period: '2021 — 2026', degree: 'B.S. in Computer Science', school: 'Kyung Hee University · Seoul' },
+  { period: '2023 — 2027', degree: 'B.S. in Computer Science', school: 'Kyung Hee University' },
   { period: '2018 — 2022', degree: 'American School of Milan Middle School Diploma & High School', school: 'American School of Milan · Italy' },
 ];
 
@@ -45,7 +45,7 @@ export const ABOUT_CONTENT = {
   homeHeadline: ['사용자 경험을 고민하고,', '함께 답을 만드는 개발자.'],
   homeSummary: '복잡한 문제를 명확한 인터페이스와 코드로 풀어냅니다. 협업 과정에서 의견을 연결하고, 실제로 사용하기 좋은 결과를 만드는 일을 중요하게 생각합니다.',
   profile: '사용자 경험을 최우선으로 생각하며, 복잡한 문제를 명확한 인터페이스와 견고한 코드로 해결합니다. 협업을 통해 더 나은 방향을 찾고 실제 가치를 만드는 개발자입니다.',
-  focus: ['Frontend Development', 'AI Service', 'UI / UX'],
+  focus: ['Web Development', 'AI Service', 'Convergence Research'],
   interests: ['AI Agent', 'Web Development', 'Data Analysis'],
   experience: EXPERIENCE,
   activities: ACTIVITIES,
