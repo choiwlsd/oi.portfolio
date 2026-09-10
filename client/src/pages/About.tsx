@@ -17,7 +17,7 @@ export default function AboutPage() {
     <div className="relative min-h-screen overflow-x-hidden bg-[#fafaf8] text-black">
       <div className="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.055)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.055)_1px,transparent_1px)] bg-size-[72px_72px]" />
       <Navbar />
-      <main className="relative z-10 mx-auto max-w-375 px-5 pb-28 pt-32 sm:px-8 md:pb-40 md:pt-44">
+      <main className="relative z-10 mx-auto max-w-330 px-5 pb-28 pt-32 sm:px-8 md:pb-40 md:pt-44">
         <header className="grid gap-12 border-b border-black pb-16 lg:grid-cols-[1.5fr_0.5fr] lg:items-end">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#2f6dff]">Curriculum vitae · 2026</p>
